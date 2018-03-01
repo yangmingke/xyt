@@ -41,8 +41,15 @@
     <servlet-name>dispatcherServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error.jsp</location>
+    </error-page>
+
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>jsp/login.jsp</welcome-file>
   </welcome-file-list>
+
+
 </web-app>
