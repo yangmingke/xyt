@@ -39,8 +39,8 @@
             <span><img src="/images/leftico01.png"/></span>管理员中心
         </div>
         <ul class="menuson">
-            <li class="active"><cite></cite><a href="/jsp/index.jsp" target="rightFrame">管理员资料</a><i></i></li>
-            <li><cite></cite><a href="/imgtable.html" target="rightFrame">修改密码</a><i></i></li>
+            <li class="active"><cite></cite><a href="/jsp/adminCenter/index.jsp" target="rightFrame">管理员资料</a><i></i></li>
+            <li><cite></cite><a href="/jsp/adminCenter/changePwd.jsp" target="rightFrame">修改密码</a><i></i></li>
             <li><cite></cite><a href="/index.html" target="rightFrame">首页模版</a><i></i></li>
             <li><cite></cite><a href="/right.html" target="rightFrame">数据列表</a><i></i></li>
             <li><cite></cite><a href="/imgtable.html" target="rightFrame">图片数据表</a><i></i></li>

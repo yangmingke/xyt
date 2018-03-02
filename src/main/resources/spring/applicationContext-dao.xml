@@ -17,12 +17,12 @@
     <!-- 加载配置文件 -->
     <context:property-placeholder location="classpath:db.properties" />
 
-	<!-- 数据源 -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
-        <property name="driverClassName" value="${jdbc.driver}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
+	<!-- 数据源 ucpaas-->
+    <bean id="dataSourceUcpaas" class="org.apache.commons.dbcp.BasicDataSource" >
+        <property name="driverClassName" value="${ucpaas.jdbc.driver}" />
+        <property name="url" value="${ucpaas.jdbc.url}" />
+        <property name="username" value="${ucpaas.jdbc.username}"/>
+        <property name="password" value="${ucpaas.jdbc.password}"/>
         <property name="maxActive" value="100"/>
         <property name="maxIdle"  value="30"/>
         <property name="maxWait" value="500"/>
@@ -32,31 +32,31 @@
         </property>
     </bean>
 
-	<!-- sqlSessionFactory -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+	<!-- sqlSessionFactoryUcpaas -->
+    <bean id="sqlSessionFactoryUcpaas" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceUcpaas" />
         <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath:mapper/**.xml"></property>
+        <property name="mapperLocations" value="classpath:mapper/ucpaas/**.xml"></property>
         <!-- 
         	定义别名,默认首字母小写。typeAliasesPackage不支持通配符
         	若要typeAliasesPackage支持通配符，需要自定义SqlSessionFactoryBean ，
         	继承SqlSessionFactoryBean 重写setTypeAliasesPackage方法
          -->
         <!-- <property name="typeAliasesPackage" value="com.shuangyang.mould.login.bean,com.shuangyang.mould.mould1.bean"/> -->
-        <property name="typeAliasesPackage" value="com.shuangyang.test.bean"/>
+        <property name="typeAliasesPackage" value="com.xyt.bean"/>
 
     </bean>
 
 	<!-- 扫描mapper（dao）包 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.shuangyang.**.dao" />
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <property name="basePackage" value="com.xyt.**.dao.ucpaas" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryUcpaas"></property>
     </bean>
 
 	<!-- transactionManager -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSourceUcpaas" />
     </bean>
 
 </beans>

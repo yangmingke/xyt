@@ -15,7 +15,7 @@
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 扫描service实现类的包 -->
-    <context:component-scan base-package="com.shuangyang.**.service.impl" use-default-filters="false">
+    <context:component-scan base-package="com.xyt.**.service.impl" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
