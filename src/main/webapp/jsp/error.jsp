@@ -25,7 +25,7 @@
     <span>位置：</span>
     <ul class="placeul">
         <li><a href="/jsp/main.jsp">首页</a></li>
-        <li><a href="#">404错误提示</a></li>
+        <li><a href="javascript:void(0);">404错误提示</a></li>
     </ul>
 </div>
 

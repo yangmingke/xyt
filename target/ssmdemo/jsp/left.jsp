@@ -59,8 +59,8 @@
             <span><img src="/images/leftico02.png"/></span>运维管理
         </div>
         <ul class="menuson">
-            <li><cite></cite><a href="/#">号码池</a><i></i></li>
-            <li><cite></cite><a href="/#">号码绑定关系</a><i></i></li>
+            <li><cite></cite><a href="/operationController/queryNumberPool" target="rightFrame">号码池</a><i></i></li>
+            <li><cite></cite><a href="/jsp/operation/numberPool.jsp" target="rightFrame">号码绑定关系</a><i></i></li>
         </ul>
     </dd>
 
@@ -68,8 +68,8 @@
     <dd>
         <div class="title"><span><img src="/images/leftico03.png"/></span>运营管理</div>
         <ul class="menuson">
-            <li><cite></cite><a href="/#">号码绑定次数统计</a><i></i></li>
-            <li><cite></cite><a href="/#">漫游通话量统计</a><i></i></li>
+            <li><cite></cite><a href="/#" target="rightFrame">号码绑定次数统计</a><i></i></li>
+            <li><cite></cite><a href="/#" target="rightFrame">漫游通话量统计</a><i></i></li>
         </ul>
     </dd>
 
@@ -77,7 +77,7 @@
     <dd>
         <div class="title"><span><img src="/images/leftico04.png"/></span>财务管理</div>
         <ul class="menuson">
-            <li><cite></cite><a href="/#">充值统计</a><i></i></li>
+            <li><cite></cite><a href="/#" target="rightFrame">充值统计</a><i></i></li>
         </ul>
 
     </dd>

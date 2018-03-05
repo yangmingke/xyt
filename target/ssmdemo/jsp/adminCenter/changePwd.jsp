@@ -12,7 +12,7 @@
 <div class="place">
     <span>位置：</span>
     <ul class="placeul">
-        <li><a href="javascript:void(0);">首页</a></li>
+        <li><a href="javascript:void(0);">管理员中心</a></li>
         <li><a href="javascript:void(0);">修改密码</a></li>
     </ul>
 </div>
