@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyt.dao.ucpaas.TbUcpaasUserMapper">
+    <resultMap id="BaseResultMap" type="com.xyt.model.TbUcpaasUser">
+        <id column="sid" property="sid" jdbcType="VARCHAR"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="user_type" property="userType" jdbcType="CHAR"/>
+        <result column="status" property="status" jdbcType="CHAR"/>
+        <result column="oauth_status" property="oauthStatus" jdbcType="CHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="province" property="province" jdbcType="INTEGER"/>
+        <result column="city" property="city" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="realname" property="realname" jdbcType="VARCHAR"/>
+        <result column="id_type" property="idType" jdbcType="CHAR"/>
+        <result column="id_nbr" property="idNbr" jdbcType="VARCHAR"/>
+        <result column="org_id" property="orgId" jdbcType="VARCHAR"/>
+        <result column="legal_person" property="legalPerson" jdbcType="VARCHAR"/>
+        <result column="company_nbr" property="companyNbr" jdbcType="VARCHAR"/>
+        <result column="web_site" property="webSite" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="login_times" property="loginTimes" jdbcType="INTEGER"/>
+        <result column="revisability" property="revisability" jdbcType="CHAR"/>
+        <result column="random_nbr" property="randomNbr" jdbcType="VARCHAR"/>
+        <result column="oauth_date" property="oauthDate" jdbcType="TIMESTAMP"/>
+        <result column="is_contract" property="isContract" jdbcType="TINYINT"/>
+        <result column="channel_id" property="channelId" jdbcType="INTEGER"/>
+        <result column="auth_type" property="authType" jdbcType="CHAR"/>
+        <result column="auth_id" property="authId" jdbcType="VARCHAR"/>
+        <result column="is_heavybuyer" property="isHeavybuyer" jdbcType="TINYINT"/>
+        <result column="is_proxy" property="isProxy" jdbcType="TINYINT"/>
+        <result column="intern_rate" property="internRate" jdbcType="TINYINT"/>
+        <result column="chat_type" property="chatType" jdbcType="CHAR"/>
+        <result column="chat_nbr" property="chatNbr" jdbcType="VARCHAR"/>
+        <result column="national" property="national" jdbcType="CHAR"/>
+        <result column="o_con_type1" property="oConType1" jdbcType="CHAR"/>
+        <result column="o_con_nbr1" property="oConNbr1" jdbcType="VARCHAR"/>
+        <result column="o_con_type2" property="oConType2" jdbcType="CHAR"/>
+        <result column="o_con_nbr2" property="oConNbr2" jdbcType="VARCHAR"/>
+        <result column="o_con_type3" property="oConType3" jdbcType="CHAR"/>
+        <result column="o_con_nbr3" property="oConNbr3" jdbcType="VARCHAR"/>
+        <result column="guide" property="guide" jdbcType="INTEGER"/>
+        <result column="post_address" property="postAddress" jdbcType="VARCHAR"/>
+        <result column="is_proxy_record_fee" property="isProxyRecordFee" jdbcType="TINYINT"/>
+        <result column="user_tag" property="userTag" jdbcType="INTEGER"/>
+        <result column="super_sid" property="superSid" jdbcType="VARCHAR"/>
+        <result column="agent_url" property="agentUrl" jdbcType="VARCHAR"/>
+        <result column="agent_logo" property="agentLogo" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    sid, token, username, email, password, user_type, status, oauth_status, mobile, province, 
+    city, address, realname, id_type, id_nbr, org_id, legal_person, company_nbr, web_site, 
+    create_date, update_date, login_times, revisability, random_nbr, oauth_date, is_contract, 
+    channel_id, auth_type, auth_id, is_heavybuyer, is_proxy, intern_rate, chat_type, 
+    chat_nbr, national, o_con_type1, o_con_nbr1, o_con_type2, o_con_nbr2, o_con_type3, 
+    o_con_nbr3, guide, post_address, is_proxy_record_fee, user_tag, super_sid, agent_url, 
+    agent_logo
+  </sql>
+
+    <select id="queryAdministrator" parameterType="com.xyt.model.TbUcpaasUser" resultMap="BaseResultMap">
+        SELECT
+            u.*
+        FROM
+            tb_ucpaas_user u,
+            tb_ucpaas_user_role ur,
+            tb_ucpaas_role r
+        WHERE
+            u.email = #{email,jdbcType=VARCHAR}
+        AND u.PASSWORD = #{password,jdbcType=VARCHAR}
+        AND u.status = 1
+        AND u.sid = ur.sid
+        AND r.role_id='1';
+    </select>
+
+    <update id="changePwd" parameterType="map">
+    UPDATE Tb_Ucpaas_User
+    SET PASSWORD = #{newPwd}
+    WHERE password = #{oldPwd}
+    AND sid = #{sid}
+  </update>
+</mapper>

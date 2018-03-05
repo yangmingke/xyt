@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flypaas.dao.TbBillCallLogMapper" >
+  <resultMap id="BaseResultMap" type="com.xyt.model.TbBillCallLog" >
+    <id column="call_id" property="callId" jdbcType="INTEGER" />
+    <result column="session_id" property="sessionId" jdbcType="INTEGER" />
+    <result column="brand_id" property="brandId" jdbcType="VARCHAR" />
+    <result column="from_number" property="fromNumber" jdbcType="VARCHAR" />
+    <result column="to_number" property="toNumber" jdbcType="VARCHAR" />
+    <result column="raw_from_number" property="rawFromNumber" jdbcType="VARCHAR" />
+    <result column="raw_to_number" property="rawToNumber" jdbcType="VARCHAR" />
+    <result column="from_ip" property="fromIp" jdbcType="VARCHAR" />
+    <result column="to_ip" property="toIp" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="time_type" property="timeType" jdbcType="CHAR" />
+    <result column="call_type" property="callType" jdbcType="CHAR" />
+    <result column="call_time" property="callTime" jdbcType="INTEGER" />
+    <result column="pkg_call_time" property="pkgCallTime" jdbcType="INTEGER" />
+    <result column="billing_time" property="billingTime" jdbcType="INTEGER" />
+    <result column="gate_id" property="gateId" jdbcType="INTEGER" />
+    <result column="gate_name" property="gateName" jdbcType="VARCHAR" />
+    <result column="gate_rate" property="gateRate" jdbcType="VARCHAR" />
+    <result column="gate_discount" property="gateDiscount" jdbcType="INTEGER" />
+    <result column="gate_units" property="gateUnits" jdbcType="INTEGER" />
+    <result column="gate_fee" property="gateFee" jdbcType="BIGINT" />
+    <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+    <result column="agent_name" property="agentName" jdbcType="VARCHAR" />
+    <result column="agent_rate" property="agentRate" jdbcType="VARCHAR" />
+    <result column="agent_discount" property="agentDiscount" jdbcType="INTEGER" />
+    <result column="agent_units" property="agentUnits" jdbcType="INTEGER" />
+    <result column="agent_fee" property="agentFee" jdbcType="BIGINT" />
+    <result column="field_id" property="fieldId" jdbcType="INTEGER" />
+    <result column="field_name" property="fieldName" jdbcType="VARCHAR" />
+    <result column="field_rate" property="fieldRate" jdbcType="VARCHAR" />
+    <result column="field_discount" property="fieldDiscount" jdbcType="INTEGER" />
+    <result column="field_units" property="fieldUnits" jdbcType="INTEGER" />
+    <result column="field_fee" property="fieldFee" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="long_name" property="longName" jdbcType="VARCHAR" />
+    <result column="call_date" property="callDate" jdbcType="DATE" />
+    <result column="call_year" property="callYear" jdbcType="INTEGER" />
+    <result column="call_month" property="callMonth" jdbcType="INTEGER" />
+    <result column="call_day" property="callDay" jdbcType="INTEGER" />
+    <result column="call_hour" property="callHour" jdbcType="INTEGER" />
+    <result column="call_week" property="callWeek" jdbcType="INTEGER" />
+    <result column="call_session_id" property="callSessionId" jdbcType="VARCHAR" />
+    <result column="show_type" property="showType" jdbcType="TINYINT" />
+    <result column="hungup_reason" property="hungupReason" jdbcType="INTEGER" />
+    <result column="delay" property="delay" jdbcType="INTEGER" />
+    <result column="continued" property="continued" jdbcType="INTEGER" />
+    <result column="rest" property="rest" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    call_id, session_id, brand_id, from_number, to_number, raw_from_number, raw_to_number, 
+    from_ip, to_ip, start_time, end_time, time_type, call_type, call_time, pkg_call_time, 
+    billing_time, gate_id, gate_name, gate_rate, gate_discount, gate_units, gate_fee, 
+    agent_id, agent_name, agent_rate, agent_discount, agent_units, agent_fee, field_id, 
+    field_name, field_rate, field_discount, field_units, field_fee, user_id, long_name, 
+    call_date, call_year, call_month, call_day, call_hour, call_week, call_session_id, 
+    show_type, hungup_reason, delay, continued, rest
+  </sql>
+
+</mapper>

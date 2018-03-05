@@ -22,7 +22,7 @@
     <div class="formtitle"><span>基本信息</span></div>
 
     <ul class="forminfo">
-        <li><label>管理员账号 </label><input value="${adminSession.username}" class="dfinput" readonly="readonly"/></li>
+        <li><label>管理员账号 </label><input value="${adminSession.email}" class="dfinput" readonly="readonly"/></li>
         <li><label>原始密码</label><input id="oldPwd" type="password" class="dfinput"/></li>
         <li><label>新密码</label><input id="newPwd" type="password" class="dfinput"/></li>
         <li><label>确认新密码</label><input id="comfirmPwd" type="password" class="dfinput"/></li>

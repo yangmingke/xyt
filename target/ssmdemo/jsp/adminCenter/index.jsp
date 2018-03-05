@@ -28,19 +28,19 @@
     <div class="xline"></div>
     <div style="padding:10% 0 0 36%;white-space:nowrap;  ">
         <div class="welinfo" style="width:40%;">
-            <label style="font-size: 12px">管理员netSid：${adminSession.netSid}</label>
-        </div>
-
-        <div class="welinfo" style="width:40%;">
             <label style="font-size: 12px;">管理员Sid：${adminSession.sid}</label>
         </div>
 
         <div class="welinfo" style="width:40%;">
-            <label style="font-size: 12px">管理员账号：${adminSession.username}</label>
+            <label style="font-size: 12px;">管理员Token：${adminSession.token}</label>
         </div>
 
         <div class="welinfo" style="width:40%;">
-            <label style="font-size: 12px">管理员名称：${adminSession.realname}</label>
+            <label style="font-size: 12px">管理员账号：${adminSession.email}</label>
+        </div>
+
+        <div class="welinfo" style="width:40%;">
+            <label style="font-size: 12px">管理员名称：信游通系统管理员</label>
         </div>
     </div>
 </div>

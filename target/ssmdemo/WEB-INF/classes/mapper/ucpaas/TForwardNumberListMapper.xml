@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flypaas.dao.TForwardNumberListMapper" >
+  <resultMap id="BaseResultMap" type="com.xyt.model.TForwardNumberList" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="areaid" property="areaid" jdbcType="VARCHAR" />
+    <result column="isp" property="isp" jdbcType="INTEGER" />
+    <result column="multi" property="multi" jdbcType="INTEGER" />
+    <result column="counter" property="counter" jdbcType="INTEGER" />
+    <result column="forwardnumber" property="forwardnumber" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, areaid, isp, multi, counter, forwardnumber, type, status, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_forward_number_list
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_forward_number_list
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xyt.model.TForwardNumberList" >
+    insert into t_forward_number_list (id, areaid, isp, 
+      multi, counter, forwardnumber, 
+      type, status, remark)
+    values (#{id,jdbcType=BIGINT}, #{areaid,jdbcType=VARCHAR}, #{isp,jdbcType=INTEGER}, 
+      #{multi,jdbcType=INTEGER}, #{counter,jdbcType=INTEGER}, #{forwardnumber,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyt.model.TForwardNumberList" >
+    insert into t_forward_number_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="areaid != null" >
+        areaid,
+      </if>
+      <if test="isp != null" >
+        isp,
+      </if>
+      <if test="multi != null" >
+        multi,
+      </if>
+      <if test="counter != null" >
+        counter,
+      </if>
+      <if test="forwardnumber != null" >
+        forwardnumber,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="areaid != null" >
+        #{areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="isp != null" >
+        #{isp,jdbcType=INTEGER},
+      </if>
+      <if test="multi != null" >
+        #{multi,jdbcType=INTEGER},
+      </if>
+      <if test="counter != null" >
+        #{counter,jdbcType=INTEGER},
+      </if>
+      <if test="forwardnumber != null" >
+        #{forwardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyt.model.TForwardNumberList" >
+    update t_forward_number_list
+    <set >
+      <if test="areaid != null" >
+        areaid = #{areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="isp != null" >
+        isp = #{isp,jdbcType=INTEGER},
+      </if>
+      <if test="multi != null" >
+        multi = #{multi,jdbcType=INTEGER},
+      </if>
+      <if test="counter != null" >
+        counter = #{counter,jdbcType=INTEGER},
+      </if>
+      <if test="forwardnumber != null" >
+        forwardnumber = #{forwardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyt.model.TForwardNumberList" >
+    update t_forward_number_list
+    set areaid = #{areaid,jdbcType=VARCHAR},
+      isp = #{isp,jdbcType=INTEGER},
+      multi = #{multi,jdbcType=INTEGER},
+      counter = #{counter,jdbcType=INTEGER},
+      forwardnumber = #{forwardnumber,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      status = #{status,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
