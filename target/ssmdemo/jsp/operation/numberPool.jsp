@@ -1,27 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>号码池</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/select-ui.min.js"></script>
+    <link href="/css/select.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         $(document).ready(function(){
+            $(".select3").uedSelect({
+                width : 100
+            });
+
             $(".click").click(function(){
                 $(".tip").fadeIn(200);
-            });
-
-            $(".tiptop a").click(function(){
-                $(".tip").fadeOut(200);
-            });
-
-            $(".sure").click(function(){
-                $(".tip").fadeOut(100);
-            });
-
-            $(".cancel").click(function(){
-                $(".tip").fadeOut(100);
             });
 
         });
@@ -41,24 +36,54 @@
     </ul>
 </div>
 
+
 <div class="rightinfo">
+    <form action="/operationController/queryNumberPool" method="post">
+        <input name="currentPage" id="currentPage" value="">
+        <div class="tools">
+            <ul class="seachform">
+                <li><label>号码</label><input name="forwardnumber" value="${paras.forwardnumber}" class="scinput"/></li>
+                <li><label>地区</label><input name="city" value="${paras.city}" class="scinput"/></li>
+                <li><label>运营商</label>
+                    <div class="vocation">
+                        <select class="select3" name="isp">
+                            <option value="">全部</option>
+                            <option value="1" <c:if test="${paras.isp == 1}">selected="selected"</c:if>>电信</option>
+                            <option value="2" <c:if test="${paras.isp == 2}">selected="selected"</c:if>>联通</option>
+                            <option value="3" <c:if test="${paras.isp == 3}">selected="selected"</c:if>>移动</option>
+                        </select>
+                    </div>
+                </li>
 
-    <div class="tools">
+                <li><label>类型</label>
+                    <div class="vocation">
+                        <select class="select3" name="type">
+                            <option value="">全部</option>
+                            <option value="0" <c:if test="${paras.type == 0}">selected="selected"</c:if>>卡号码</option>
+                            <option value="1" <c:if test="${paras.type == 1}">selected="selected"</c:if>>固话号</option>
+                        </select>
+                    </div>
+                </li>
 
-        <ul class="toolbar">
-            <li class="click"><span><img src="/images/t01.png" /></span>添加</li>
-            <li class="click"><span><img src="/images/t02.png" /></span>修改</li>
-            <li><span><img src="/images/t03.png" /></span>删除</li>
-            <li><span><img src="/images/t04.png" /></span>统计</li>
-        </ul>
-
-    </div>
-
+                <li><label>状态</label>
+                    <div class="vocation">
+                        <select class="select3" name="status">
+                            <option value="">全部</option>
+                            <option value="0" <c:if test="${paras.status == 0}">selected="selected"</c:if>>可用</option>
+                            <option value="1" <c:if test="${paras.status == 1}">selected="selected"</c:if>>冻结</option>
+                        </select>
+                    </div>
+                </li>
+                <li><label>&nbsp;</label><input name="submit" type="submit" class="scbtn" value="查询"/></li>
+                <span class="toolbar"><li class="click"><span><img src="/images/t01.png" /></span>添加</li></span>
+            </ul>
+        </div>
+    </form>
 
     <table class="tablelist">
         <thead>
         <tr>
-            <th>编号</th>
+            <th>序号</th>
             <th>地区</th>
             <th>号码</th>
             <th>运营商</th>
@@ -71,52 +96,47 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>20130908</td>
-            <td>王金平幕僚：马英九声明字字见血 人活着没意思</td>
-            <td>admin</td>
-            <td>江苏南京</td>
-            <td>2013-09-09 15:05</td>
-            <td>已审核</td>
-            <td>已审核</td>
-            <td>已审核</td>
-            <td>已审核</td>
-            <td><a href="#" class="tablelink">修改</a>     <a href="#" class="tablelink"> 删除</a></td>
-        </tr>
-
-        <tr>
-            <td>20130907</td>
-            <td>温州19名小学生中毒流鼻血续：周边部分企业关停</td>
-            <td></td>
-            <td>山东济南</td>
-            <td>2013-09-08 14:02</td>
-            <td>未审核</td>
-            <td>已审核</td>
-            <td>已审核</td>
-            <td>已审核</td>
-            <td><a href="#" class="tablelink">修改</a>     <a href="#" class="tablelink">删除</a></td>
-        </tr>
-
-        <tr>
-            <td>20130906</td>
-            <td>社科院:电子商务促进了农村经济结构和社会转型</td>
-            <td>user</td>
-            <td>江苏无锡</td>
-            <td>2013-09-07 13:16</td>
-            <td>未审核</td>
-            <td>已审核</td>
-            <td>已审核</td>
-            <td>已审核</td>
-            <td><a href="#" class="tablelink">修改</a>     <a href="#" class="tablelink">删除</a></td>
-        </tr>
+        <%int i = 1; %>
+        <c:forEach var="numberList" items="${page.resultMap}">
+            <tr>
+                <td><%=i++%></td>
+                <td>${numberList.city}</td>
+                <td>${numberList.forwardnumber}</td>
+                <td>
+                    <c:if test="${numberList.isp == 1}">电信</c:if>
+                    <c:if test="${numberList.isp == 2}">联通</c:if>
+                    <c:if test="${numberList.isp == 3}">移动</c:if>
+                </td>
+                <td>
+                    <c:if test="${numberList.multi == 0}">否</c:if>
+                    <c:if test="${numberList.multi == 1}">是</c:if>
+                </td>
+                <td>${numberList.counter}</td>
+                <td>
+                    <c:if test="${numberList.type == 0}">卡号码</c:if>
+                    <c:if test="${numberList.type == 1}">固话号</c:if>
+                </td>
+                <td>
+                    <c:if test="${numberList.status == 0}">可用</c:if>
+                    <c:if test="${numberList.status == 1}">冻结</c:if>
+                </td>
+                <td>${numberList.remark}</td>
+                <td>
+                    <a href="#" class="tablelink">修改</a>
+                    <a href="#" class="tablelink"> 删除</a>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 
 
     <div class="pagin">
-        <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+        <div class="message">共<i class="blue">${page.totalCount}</i>条记录，当前显示第&nbsp;<i class="blue">${page.currentPage}&nbsp;</i>页</div>
         <ul class="paginList">
-            <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+            <c:if test="${page.currentPage != 1}">
+                <li class="paginItem"><a onclick="jumpToPage(${page.currentPage-1})"><span class="pagepre"></span></a></li>
+            </c:if>
             <li class="paginItem"><a href="javascript:;">1</a></li>
             <li class="paginItem current"><a href="javascript:;">2</a></li>
             <li class="paginItem"><a href="javascript:;">3</a></li>
@@ -124,7 +144,19 @@
             <li class="paginItem"><a href="javascript:;">5</a></li>
             <li class="paginItem more"><a href="javascript:;">...</a></li>
             <li class="paginItem"><a href="javascript:;">10</a></li>
-            <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+            <c:if test="${page.currentPage != page.totalPage}">
+                <li class="paginItem"><a onclick="jumpToPage(${page.currentPage+1})"><span class="pagenxt"></span></a></li>
+            </c:if>
+
+            
+            <c:forEach items="${page.pageList}" var="item">
+                <c:if test="${page.currentPage != item}">
+                    <a onclick="jumpToPage(${item})">${item}</a>
+                </c:if>
+                <c:if test="${page.currentPage == item}">
+                    <a class="current">${item}</a>
+                </c:if>
+            </c:forEach>
         </ul>
     </div>
 
@@ -133,7 +165,7 @@
         <div class="tiptop"><span>提示信息</span><a></a></div>
 
         <div class="tipinfo">
-            <span><img src="images/ticon.png" /></span>
+            <span><img src="/images/ticon.png" /></span>
             <div class="tipright">
                 <p>是否确认对信息的修改 ？</p>
                 <cite>如果是请点击确定按钮 ，否则请点取消。</cite>

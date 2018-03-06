@@ -1,18 +1,10 @@
 package com.xyt.dao.ucpaas;
 
-
-import com.xyt.model.TForwardNumberList;
+import java.util.List;
+import java.util.Map;
 
 public interface TForwardNumberListMapper {
-    int deleteByPrimaryKey(Long id);
+    int queryNumberPoolCount(Map<String, Object> paras);
 
-    int insert(TForwardNumberList record);
-
-    int insertSelective(TForwardNumberList record);
-
-    TForwardNumberList selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(TForwardNumberList record);
-
-    int updateByPrimaryKey(TForwardNumberList record);
+    List<Map<String,String>> queryNumberPool(Map<String, Object> paras);
 }
