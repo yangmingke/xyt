@@ -19,15 +19,24 @@
                 $(".tip").fadeIn(200);
             });
 
+            $(".tiptop a").click(function(){
+                $(".tip").fadeOut(200);
+            });
+
+            $(".sure").click(function(){
+                $(".tip").fadeOut(100);
+            });
+
+            $(".cancel").click(function() {
+                $(".tip").fadeOut(100);
+            });
+
         });
     </script>
 
-
 </head>
 
-
 <body>
-
 <div class="place">
     <span>位置：</span>
     <ul class="placeul">
@@ -36,9 +45,8 @@
     </ul>
 </div>
 
-
 <div class="rightinfo">
-    <form action="/operationController/queryNumberPool" method="post">
+    <form action="/operationController/queryNumberPool" id="dataForm" method="post">
         <input name="currentPage" id="currentPage" value="">
         <div class="tools">
             <ul class="seachform">
@@ -130,36 +138,26 @@
         </tbody>
     </table>
 
-
     <div class="pagin">
         <div class="message">共<i class="blue">${page.totalCount}</i>条记录，当前显示第&nbsp;<i class="blue">${page.currentPage}&nbsp;</i>页</div>
         <ul class="paginList">
             <c:if test="${page.currentPage != 1}">
-                <li class="paginItem"><a onclick="jumpToPage(${page.currentPage-1})"><span class="pagepre"></span></a></li>
+                <li class="paginItem"><a onclick="jumpToPage(${page.currentPage-1})" href="javascript:void(0);"><span class="pagepre"></span></a></li>
             </c:if>
-            <li class="paginItem"><a href="javascript:;">1</a></li>
-            <li class="paginItem current"><a href="javascript:;">2</a></li>
-            <li class="paginItem"><a href="javascript:;">3</a></li>
-            <li class="paginItem"><a href="javascript:;">4</a></li>
-            <li class="paginItem"><a href="javascript:;">5</a></li>
-            <li class="paginItem more"><a href="javascript:;">...</a></li>
-            <li class="paginItem"><a href="javascript:;">10</a></li>
-            <c:if test="${page.currentPage != page.totalPage}">
-                <li class="paginItem"><a onclick="jumpToPage(${page.currentPage+1})"><span class="pagenxt"></span></a></li>
-            </c:if>
-
-            
             <c:forEach items="${page.pageList}" var="item">
                 <c:if test="${page.currentPage != item}">
-                    <a onclick="jumpToPage(${item})">${item}</a>
+                    <li class="paginItem"><a onclick="jumpToPage(${item})" href="javascript:void(0);">${item}</a></li>
                 </c:if>
                 <c:if test="${page.currentPage == item}">
-                    <a class="current">${item}</a>
+                    <li class="paginItem current"><a href="javascript:void(0);">${item}</a></li>
                 </c:if>
             </c:forEach>
+            <c:if test="${page.currentPage != page.totalPage}">
+                <li class="paginItem"><a onclick="jumpToPage(${page.currentPage+1})" href="javascript:void(0);"><span class="pagenxt"></span></a></li>
+            </c:if>
+
         </ul>
     </div>
-
 
     <div class="tip">
         <div class="tiptop"><span>提示信息</span><a></a></div>
@@ -179,13 +177,15 @@
 
     </div>
 
-
-
-
 </div>
 
 <script type="text/javascript">
     $('.tablelist tbody tr:odd').addClass('odd');
+
+    function jumpToPage(page) {
+        $("#currentPage").val(page);
+        $("#dataForm").submit();
+    }
 </script>
 </body>
 </html>
