@@ -1,7 +1,7 @@
-package com.xyt.controller;
+package com.xyt.controller.user;
 
 import com.xyt.model.TbUcpaasUser;
-import com.xyt.service.UserService;
+import com.xyt.service.user.UserService;
 import com.xyt.util.MD5Util;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

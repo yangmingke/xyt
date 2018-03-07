@@ -1,4 +1,4 @@
-package com.xyt.service;
+package com.xyt.service.user;
 
 import com.xyt.model.TbUcpaasUser;
 

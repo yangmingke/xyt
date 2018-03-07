@@ -47,7 +47,7 @@
             <ul class="forminfo">
                 <input value="${numberInfo.id}" name="id" hidden="hidden"/>
                 <li>
-                    <label>号码<b>*</b></label><input value="${numberInfo.forwardnumber}" name="forwardnumber" id="forwardnumber" type="text" class="dfinput" style="width:518px;" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
+                    <label>号码<b>*</b></label><input maxlength="13" value="${numberInfo.forwardnumber}" name="forwardnumber" id="forwardnumber" type="text" class="dfinput" style="width:518px;" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
                     <i style="color: red" class="notice" id="forwardnumberText"></i>
                 </li>
 

@@ -46,7 +46,7 @@
         <input name="currentPage" id="currentPage" value="" hidden="hidden">
         <div class="tools">
             <ul class="seachform">
-                <li><label>号码</label><input name="forwardnumber" value="${paras.forwardnumber}" class="scinput" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></li>
+                <li><label>号码</label><input maxlength="13" name="forwardnumber" value="${paras.forwardnumber}" class="scinput" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></li>
                 <li><label>地区</label><input name="city" value="${paras.city}" class="scinput"/></li>
                 <li><label>运营商</label>
                     <div class="vocation">

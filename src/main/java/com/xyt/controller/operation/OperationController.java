@@ -1,9 +1,9 @@
-package com.xyt.controller;
+package com.xyt.controller.operation;
 
 import com.xyt.model.TForwardNumberList;
 import com.xyt.model.TbUcpaasCity;
 import com.xyt.service.CityService;
-import com.xyt.service.OperationService;
+import com.xyt.service.operation.OperationService;
 import com.xyt.util.PageContainer;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class OperationController {
 
     @RequestMapping("/queryNumberPool")
     public ModelAndView queryNumberPool(HttpServletRequest request){
-        String city = request.getParameter("city");
+        String city = request.getParameter("util");
         String isp = request.getParameter("isp");
         String forwardnumber = request.getParameter("forwardnumber");
         String type = request.getParameter("type");
