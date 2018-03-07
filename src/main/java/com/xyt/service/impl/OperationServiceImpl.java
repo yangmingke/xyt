@@ -1,6 +1,7 @@
 package com.xyt.service.impl;
 
 import com.xyt.dao.ucpaas.TForwardNumberListMapper;
+import com.xyt.model.TForwardNumberList;
 import com.xyt.service.OperationService;
 import com.xyt.util.PageContainer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,22 @@ public class OperationServiceImpl implements OperationService {
         pageContainer.setResultMap(resultMap);
 
         return pageContainer;
+    }
+
+    public String deleteNumber(int deleteId) {
+        int count = tForwardNumberListMapper.deleteNumber(deleteId);
+        return count > 0 ? "success" : "fail";
+    }
+
+    public void addNumber(TForwardNumberList tForwardNumberList) {
+        tForwardNumberListMapper.addNumber(tForwardNumberList);
+    }
+
+    public TForwardNumberList queryNumberInfoById(int numberId) {
+        return tForwardNumberListMapper.queryNumberInfoById(numberId);
+    }
+
+    public void updateNumber(TForwardNumberList tForwardNumberList) {
+        tForwardNumberListMapper.updateNumber(tForwardNumberList);
     }
 }

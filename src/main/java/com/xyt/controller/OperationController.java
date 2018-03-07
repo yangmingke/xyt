@@ -1,16 +1,20 @@
 package com.xyt.controller;
 
+import com.xyt.model.TForwardNumberList;
+import com.xyt.model.TbUcpaasCity;
+import com.xyt.service.CityService;
 import com.xyt.service.OperationService;
 import com.xyt.util.PageContainer;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,6 +23,8 @@ import java.util.Map;
 public class OperationController {
     @Autowired
     private OperationService operationService;
+    @Autowired
+    private CityService cityService;
 
     @RequestMapping("/queryNumberPool")
     public ModelAndView queryNumberPool(HttpServletRequest request){
@@ -44,6 +50,45 @@ public class OperationController {
         model.put("paras",paras);
 
         return new ModelAndView("operation/numberPool",model);
+    }
+
+    @RequestMapping("/deleteNumber")
+    @ResponseBody
+    public String deleteNumber(int deleteId){
+        return operationService.deleteNumber(deleteId);
+    }
+
+    @RequestMapping("/addNumberPage")
+    public ModelAndView addNumberPage(){
+        List<TbUcpaasCity> provinceList = cityService.getProvinceList();
+        return new ModelAndView("operation/numberInfo","provinceList",provinceList);
+    }
+
+    @RequestMapping("/addNumber")
+    public ModelAndView addNumber(TForwardNumberList tForwardNumberList){
+        operationService.addNumber(tForwardNumberList);
+        return new ModelAndView("redirect:queryNumberPool");
+    }
+
+    @RequestMapping("/updateNumberPage")
+    public ModelAndView updateNumberPage(int numberId){
+        TForwardNumberList numberInfo = operationService.queryNumberInfoById(numberId);
+        TbUcpaasCity cityInfo = cityService.queryCityByCityId(numberInfo.getAreaid());
+        List<TbUcpaasCity> provinceList = cityService.getProvinceList();
+        List<TbUcpaasCity> cityList = cityService.queryCitysByProvinceId(cityInfo.getProvinceid());
+
+        Map<String,Object> model = new HashMap<String, Object>();
+        model.put("numberInfo",numberInfo);
+        model.put("cityInfo",cityInfo);
+        model.put("provinceList",provinceList);
+        model.put("cityList",cityList);
+        return new ModelAndView("operation/numberInfo", model);
+    }
+
+    @RequestMapping("/updateNumber")
+    public ModelAndView updateNumber(TForwardNumberList tForwardNumberList){
+        operationService.updateNumber(tForwardNumberList);
+        return new ModelAndView("redirect:queryNumberPool");
     }
 
 

@@ -15,10 +15,6 @@
                 width : 100
             });
 
-            $(".click").click(function(){
-                $(".tip").fadeIn(200);
-            });
-
             $(".tiptop a").click(function(){
                 $(".tip").fadeOut(200);
             });
@@ -47,10 +43,10 @@
 
 <div class="rightinfo">
     <form action="/operationController/queryNumberPool" id="dataForm" method="post">
-        <input name="currentPage" id="currentPage" value="">
+        <input name="currentPage" id="currentPage" value="" hidden="hidden">
         <div class="tools">
             <ul class="seachform">
-                <li><label>号码</label><input name="forwardnumber" value="${paras.forwardnumber}" class="scinput"/></li>
+                <li><label>号码</label><input name="forwardnumber" value="${paras.forwardnumber}" class="scinput" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></li>
                 <li><label>地区</label><input name="city" value="${paras.city}" class="scinput"/></li>
                 <li><label>运营商</label>
                     <div class="vocation">
@@ -82,8 +78,8 @@
                         </select>
                     </div>
                 </li>
-                <li><label>&nbsp;</label><input name="submit" type="submit" class="scbtn" value="查询"/></li>
-                <span class="toolbar"><li class="click"><span><img src="/images/t01.png" /></span>添加</li></span>
+                <li><label>&nbsp;</label><input type="submit" class="scbtn" value="查询"/></li>
+                <a class="toolbar" href="/operationController/addNumberPage"><li class="click"><span><img src="/images/t01.png" /></span>添加</li></a>
             </ul>
         </div>
     </form>
@@ -105,33 +101,33 @@
         </thead>
         <tbody>
         <%int i = 1; %>
-        <c:forEach var="numberList" items="${page.resultMap}">
+        <c:forEach var="numberData" items="${page.resultMap}">
             <tr>
                 <td><%=i++%></td>
-                <td>${numberList.city}</td>
-                <td>${numberList.forwardnumber}</td>
+                <td>${numberData.city}</td>
+                <td>${numberData.forwardnumber}</td>
                 <td>
-                    <c:if test="${numberList.isp == 1}">电信</c:if>
-                    <c:if test="${numberList.isp == 2}">联通</c:if>
-                    <c:if test="${numberList.isp == 3}">移动</c:if>
+                    <c:if test="${numberData.isp == 1}">电信</c:if>
+                    <c:if test="${numberData.isp == 2}">联通</c:if>
+                    <c:if test="${numberData.isp == 3}">移动</c:if>
                 </td>
                 <td>
-                    <c:if test="${numberList.multi == 0}">否</c:if>
-                    <c:if test="${numberList.multi == 1}">是</c:if>
+                    <c:if test="${numberData.multi == 0}">否</c:if>
+                    <c:if test="${numberData.multi == 1}">是</c:if>
                 </td>
-                <td>${numberList.counter}</td>
+                <td>${numberData.counter}</td>
                 <td>
-                    <c:if test="${numberList.type == 0}">卡号码</c:if>
-                    <c:if test="${numberList.type == 1}">固话号</c:if>
+                    <c:if test="${numberData.type == 0}">卡号码</c:if>
+                    <c:if test="${numberData.type == 1}">固话号</c:if>
                 </td>
                 <td>
-                    <c:if test="${numberList.status == 0}">可用</c:if>
-                    <c:if test="${numberList.status == 1}">冻结</c:if>
+                    <c:if test="${numberData.status == 0}">可用</c:if>
+                    <c:if test="${numberData.status == 1}">冻结</c:if>
                 </td>
-                <td>${numberList.remark}</td>
+                <td>${numberData.remark}</td>
                 <td>
-                    <a href="#" class="tablelink">修改</a>
-                    <a href="#" class="tablelink"> 删除</a>
+                    <a href="/operationController/updateNumberPage?numberId=${numberData.id}" class="tablelink">修改</a>
+                    <a href="#" class="tablelink delete" onclick="deleteNumber('${numberData.id}')"> 删除</a>
                 </td>
             </tr>
         </c:forEach>
@@ -163,15 +159,16 @@
         <div class="tiptop"><span>提示信息</span><a></a></div>
 
         <div class="tipinfo">
-            <span><img src="/images/ticon.png" /></span>
+            <span><img src="/images/delete.png" /></span>
             <div class="tipright">
-                <p>是否确认对信息的修改 ？</p>
+                <p>是否确认对信息的删除 ？</p>
                 <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
             </div>
         </div>
 
         <div class="tipbtn">
-            <input name="" type="button"  class="sure" value="确定" />&nbsp;
+            <input name="deleteId" id="deleteId" value="" hidden="hidden">
+            <input name="" type="button"  class="sure" value="确定" onclick="deleteComfirm()"/>&nbsp;
             <input name="" type="button"  class="cancel" value="取消" />
         </div>
 
@@ -185,6 +182,23 @@
     function jumpToPage(page) {
         $("#currentPage").val(page);
         $("#dataForm").submit();
+    }
+
+    function deleteNumber(numberId){
+        $(".tip").fadeIn(200);
+        $('#deleteId').val(numberId);
+    }
+
+    function deleteComfirm() {
+        var deleteId = $('#deleteId').val();
+        $.post("/operationController/deleteNumber",{deleteId:deleteId},function (result) {
+            if(result == "success"){
+                alert("删除成功！");
+                window.location.reload();
+            }else{
+                alert("删除失败！");
+            }
+        });
     }
 </script>
 </body>

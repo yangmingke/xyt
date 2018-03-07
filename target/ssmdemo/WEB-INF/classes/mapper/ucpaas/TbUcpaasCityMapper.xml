@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyt.dao.ucpaas.TbUcpaasCityMapper" >
+  <resultMap id="BaseResultMap" type="com.xyt.model.TbUcpaasCity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="continent" property="continent" jdbcType="VARCHAR" />
+    <result column="continentid" property="continentid" jdbcType="INTEGER" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="countryid" property="countryid" jdbcType="INTEGER" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="areaid" property="areaid" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="provinceid" property="provinceid" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="cityid" property="cityid" jdbcType="INTEGER" />
+    <result column="latitude" property="latitude" jdbcType="DECIMAL" />
+    <result column="longitude" property="longitude" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, continent, continentid, country, countryid, area, areaid, province, provinceid, 
+    city, cityid, latitude, longitude
+  </sql>
+
+  <select id="getProvinceList" resultMap="BaseResultMap">
+    SELECT DISTINCT province,provinceid
+    from tb_ucpaas_city2
+  </select>
+
+  <select id="queryCitysByProvinceId" parameterType="int" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM tb_ucpaas_city2
+    WHERE provinceid = #{0}
+  </select>
+
+  <select id="queryCityByCityId" parameterType="String" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM tb_ucpaas_city2
+    WHERE cityid = #{0}
+  </select>
+
+</mapper>
