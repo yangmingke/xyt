@@ -41,7 +41,7 @@
         <ul class="menuson">
             <li class="active"><cite></cite><a href="/jsp/adminCenter/index.jsp" target="rightFrame">管理员资料</a><i></i></li>
             <li><cite></cite><a href="/jsp/adminCenter/changePwd.jsp" target="rightFrame">修改密码</a><i></i></li>
-            <li><cite></cite><a href="/jsp/operation/numberInfo.jsp" target="rightFrame">首页模版</a><i></i></li>
+            <li><cite></cite><a href="/jsp/bussiness/bindingCounter.jsp" target="rightFrame">首页模版</a><i></i></li>
             <li><cite></cite><a href="/right.html" target="rightFrame">数据列表</a><i></i></li>
             <li><cite></cite><a href="/imgtable.html" target="rightFrame">图片数据表</a><i></i></li>
             <li><cite></cite><a href="/form.html" target="rightFrame">添加编辑</a><i></i></li>
@@ -59,8 +59,8 @@
             <span><img src="/images/leftico02.png"/></span>运维管理
         </div>
         <ul class="menuson">
-            <li><cite></cite><a href="/operationController/queryNumberPool" target="rightFrame">号码池</a><i></i></li>
-            <li><cite></cite><a href="/jsp/operation/numberPool.jsp" target="rightFrame">号码绑定关系</a><i></i></li>
+            <li><cite></cite><a href="/numberPoolController/queryNumberPool" target="rightFrame">号码池</a><i></i></li>
+            <li><cite></cite><a href="/bindingController/queryNumberBinding" target="rightFrame">号码绑定关系</a><i></i></li>
         </ul>
     </dd>
 
@@ -68,7 +68,7 @@
     <dd>
         <div class="title"><span><img src="/images/leftico03.png"/></span>运营管理</div>
         <ul class="menuson">
-            <li><cite></cite><a href="/#" target="rightFrame">号码绑定次数统计</a><i></i></li>
+            <li><cite></cite><a href="/bindingCounterController/queryBindingCounterPage" target="rightFrame">号码绑定次数统计</a><i></i></li>
             <li><cite></cite><a href="/#" target="rightFrame">漫游通话量统计</a><i></i></li>
         </ul>
     </dd>

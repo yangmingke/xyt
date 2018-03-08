@@ -17,4 +17,6 @@ public interface TForwardNumberListMapper {
     TForwardNumberList queryNumberInfoById(int numberId);
 
     void updateNumber(TForwardNumberList tForwardNumberList);
+
+    int subCounterByNumber(String forwardPhone);
 }

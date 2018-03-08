@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.flypaas.dao.TbUcpaasRoamMapper" >
+<mapper namespace="com.xyt.dao.ucpaas.TbUcpaasRoamMapper" >
   <resultMap id="BaseResultMap" type="com.xyt.model.TbUcpaasRoam" >
     <id column="roam_id" property="roamId" jdbcType="INTEGER" />
     <result column="client_number" property="clientNumber" jdbcType="VARCHAR" />
@@ -20,169 +20,43 @@
     roam_id, client_number, exp_days, create_date, update_date, exp_date, call_mode, 
     phone, sid, app_sid, status, forward_phone, next_date
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
+
+  <select id="queryNumberBindingCount" parameterType="map" resultType="int">
+    select count(*)
     from tb_ucpaas_roam
-    where roam_id = #{roamId,jdbcType=INTEGER}
+    where 1=1
+    <if test="clientNumber != null" >
+      and client_Number like CONCAT('%',#{clientNumber,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="forwardPhone != null" >
+      and forward_Phone like CONCAT('%',#{forwardPhone,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="phone != null" >
+      and phone like CONCAT('%',#{phone,jdbcType=VARCHAR},'%')
+    </if>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_ucpaas_roam
-    where roam_id = #{roamId,jdbcType=INTEGER}
+
+  <select id="queryNumberBinding" parameterType="map" resultType="map">
+    SELECT
+      <include refid="Base_Column_List"/>
+    FROM
+      tb_ucpaas_roam
+    where 1=1
+    <if test="clientNumber != null" >
+      and client_Number like CONCAT('%',#{clientNumber,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="forwardPhone != null" >
+      and forward_Phone like CONCAT('%',#{forwardPhone,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="phone != null" >
+      and phone like CONCAT('%',#{phone,jdbcType=VARCHAR},'%')
+    </if>
+    LIMIT #{begin,jdbcType=INTEGER} , #{count,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteBinding" parameterType="int">
+    DELETE FROM tb_ucpaas_roam
+    WHERE roam_id = #{0}
   </delete>
-  <insert id="insert" parameterType="com.xyt.model.TbUcpaasRoam" >
-    insert into tb_ucpaas_roam (roam_id, client_number, exp_days, 
-      create_date, update_date, exp_date, 
-      call_mode, phone, sid, 
-      app_sid, status, forward_phone, 
-      next_date)
-    values (#{roamId,jdbcType=INTEGER}, #{clientNumber,jdbcType=VARCHAR}, #{expDays,jdbcType=INTEGER}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP}, 
-      #{callMode,jdbcType=TINYINT}, #{phone,jdbcType=VARCHAR}, #{sid,jdbcType=VARCHAR}, 
-      #{appSid,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{forwardPhone,jdbcType=VARCHAR}, 
-      #{nextDate,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.xyt.model.TbUcpaasRoam" >
-    insert into tb_ucpaas_roam
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="roamId != null" >
-        roam_id,
-      </if>
-      <if test="clientNumber != null" >
-        client_number,
-      </if>
-      <if test="expDays != null" >
-        exp_days,
-      </if>
-      <if test="createDate != null" >
-        create_date,
-      </if>
-      <if test="updateDate != null" >
-        update_date,
-      </if>
-      <if test="expDate != null" >
-        exp_date,
-      </if>
-      <if test="callMode != null" >
-        call_mode,
-      </if>
-      <if test="phone != null" >
-        phone,
-      </if>
-      <if test="sid != null" >
-        sid,
-      </if>
-      <if test="appSid != null" >
-        app_sid,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="forwardPhone != null" >
-        forward_phone,
-      </if>
-      <if test="nextDate != null" >
-        next_date,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="roamId != null" >
-        #{roamId,jdbcType=INTEGER},
-      </if>
-      <if test="clientNumber != null" >
-        #{clientNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="expDays != null" >
-        #{expDays,jdbcType=INTEGER},
-      </if>
-      <if test="createDate != null" >
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null" >
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="expDate != null" >
-        #{expDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="callMode != null" >
-        #{callMode,jdbcType=TINYINT},
-      </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="sid != null" >
-        #{sid,jdbcType=VARCHAR},
-      </if>
-      <if test="appSid != null" >
-        #{appSid,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=BIT},
-      </if>
-      <if test="forwardPhone != null" >
-        #{forwardPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="nextDate != null" >
-        #{nextDate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xyt.model.TbUcpaasRoam" >
-    update tb_ucpaas_roam
-    <set >
-      <if test="clientNumber != null" >
-        client_number = #{clientNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="expDays != null" >
-        exp_days = #{expDays,jdbcType=INTEGER},
-      </if>
-      <if test="createDate != null" >
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null" >
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="expDate != null" >
-        exp_date = #{expDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="callMode != null" >
-        call_mode = #{callMode,jdbcType=TINYINT},
-      </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="sid != null" >
-        sid = #{sid,jdbcType=VARCHAR},
-      </if>
-      <if test="appSid != null" >
-        app_sid = #{appSid,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=BIT},
-      </if>
-      <if test="forwardPhone != null" >
-        forward_phone = #{forwardPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="nextDate != null" >
-        next_date = #{nextDate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where roam_id = #{roamId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.xyt.model.TbUcpaasRoam" >
-    update tb_ucpaas_roam
-    set client_number = #{clientNumber,jdbcType=VARCHAR},
-      exp_days = #{expDays,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      exp_date = #{expDate,jdbcType=TIMESTAMP},
-      call_mode = #{callMode,jdbcType=TINYINT},
-      phone = #{phone,jdbcType=VARCHAR},
-      sid = #{sid,jdbcType=VARCHAR},
-      app_sid = #{appSid,jdbcType=VARCHAR},
-      status = #{status,jdbcType=BIT},
-      forward_phone = #{forwardPhone,jdbcType=VARCHAR},
-      next_date = #{nextDate,jdbcType=TIMESTAMP}
-    where roam_id = #{roamId,jdbcType=INTEGER}
-  </update>
+
 </mapper>

@@ -59,6 +59,8 @@
         <property name="dataSource" ref="dataSourceUcpaas" />
     </bean>
 
+    <tx:annotation-driven transaction-manager="transactionManagerUcpaas" proxy-target-class="true"/>
+
     <!-- 数据源 statistic_statistics-->
     <bean id="dataSourceStatistic" class="org.apache.commons.dbcp.BasicDataSource" >
         <property name="driverClassName" value="${statistic.jdbc.driver}" />
@@ -101,4 +103,5 @@
         <property name="dataSource" ref="dataSourceStatistic" />
     </bean>
 
+    <tx:annotation-driven transaction-manager="transactionManagerStatistics" proxy-target-class="true"/>
 </beans>

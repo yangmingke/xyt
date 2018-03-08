@@ -6,7 +6,7 @@ import com.xyt.util.PageContainer;
 
 import java.util.Map;
 
-public interface OperationService {
+public interface NumberPoolService {
     PageContainer queryNumberPool(Map<String, Object> paras);
 
     String deleteNumber(int deleteId);

@@ -42,11 +42,11 @@
 </div>
 
 <div class="rightinfo">
-    <form action="/operationController/queryNumberPool" id="dataForm" method="post">
+    <form action="/numberPoolController/queryNumberPool" id="dataForm" method="post">
         <input name="currentPage" id="currentPage" value="" hidden="hidden">
         <div class="tools">
             <ul class="seachform">
-                <li><label>号码</label><input maxlength="13" name="forwardnumber" value="${paras.forwardnumber}" class="scinput" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></li>
+                <li><label>号码</label><input maxlength="11" name="forwardnumber" value="${paras.forwardnumber}" class="scinput" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></li>
                 <li><label>地区</label><input name="city" value="${paras.city}" class="scinput"/></li>
                 <li><label>运营商</label>
                     <div class="vocation">
@@ -79,7 +79,7 @@
                     </div>
                 </li>
                 <li><label>&nbsp;</label><input type="submit" class="scbtn" value="查询"/></li>
-                <a class="toolbar" href="/operationController/addNumberPage"><li class="click"><span><img src="/images/t01.png" /></span>添加</li></a>
+                <a class="toolbar" href="/numberPoolController/addNumberPage"><li class="click"><span><img src="/images/t01.png" /></span>添加</li></a>
             </ul>
         </div>
     </form>
@@ -101,33 +101,33 @@
         </thead>
         <tbody>
         <%int i = 1; %>
-        <c:forEach var="numberData" items="${page.resultMap}">
+        <c:forEach var="bindingInfo" items="${page.resultMap}">
             <tr>
                 <td><%=i++%></td>
-                <td>${numberData.city}</td>
-                <td>${numberData.forwardnumber}</td>
+                <td>${bindingInfo.city}</td>
+                <td>${bindingInfo.forwardnumber}</td>
                 <td>
-                    <c:if test="${numberData.isp == 1}">电信</c:if>
-                    <c:if test="${numberData.isp == 2}">联通</c:if>
-                    <c:if test="${numberData.isp == 3}">移动</c:if>
+                    <c:if test="${bindingInfo.isp == 1}">电信</c:if>
+                    <c:if test="${bindingInfo.isp == 2}">联通</c:if>
+                    <c:if test="${bindingInfo.isp == 3}">移动</c:if>
                 </td>
                 <td>
-                    <c:if test="${numberData.multi == 0}">否</c:if>
-                    <c:if test="${numberData.multi == 1}">是</c:if>
+                    <c:if test="${bindingInfo.multi == 0}">否</c:if>
+                    <c:if test="${bindingInfo.multi == 1}">是</c:if>
                 </td>
-                <td>${numberData.counter}</td>
+                <td>${bindingInfo.counter}</td>
                 <td>
-                    <c:if test="${numberData.type == 0}">卡号码</c:if>
-                    <c:if test="${numberData.type == 1}">固话号</c:if>
+                    <c:if test="${bindingInfo.type == 0}">卡号码</c:if>
+                    <c:if test="${bindingInfo.type == 1}">固话号</c:if>
                 </td>
                 <td>
-                    <c:if test="${numberData.status == 0}">可用</c:if>
-                    <c:if test="${numberData.status == 1}">冻结</c:if>
+                    <c:if test="${bindingInfo.status == 0}">可用</c:if>
+                    <c:if test="${bindingInfo.status == 1}">冻结</c:if>
                 </td>
-                <td>${numberData.remark}</td>
+                <td>${bindingInfo.remark}</td>
                 <td>
-                    <a href="/operationController/updateNumberPage?numberId=${numberData.id}" class="tablelink">修改</a>
-                    <a href="#" class="tablelink delete" onclick="deleteNumber('${numberData.id}')"> 删除</a>
+                    <a href="/numberPoolController/updateNumberPage?numberId=${bindingInfo.id}" class="tablelink">修改</a>
+                    <a href="#" class="tablelink delete" onclick="deleteNumber('${bindingInfo.id}')"> 删除</a>
                 </td>
             </tr>
         </c:forEach>
@@ -191,7 +191,7 @@
 
     function deleteComfirm() {
         var deleteId = $('#deleteId').val();
-        $.post("/operationController/deleteNumber",{deleteId:deleteId},function (result) {
+        $.post("/numberPoolController/deleteNumber",{deleteId:deleteId},function (result) {
             if(result == "success"){
                 alert("删除成功！");
                 window.location.reload();

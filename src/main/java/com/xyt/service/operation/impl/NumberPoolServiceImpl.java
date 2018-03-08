@@ -2,7 +2,7 @@ package com.xyt.service.operation.impl;
 
 import com.xyt.dao.ucpaas.TForwardNumberListMapper;
 import com.xyt.model.TForwardNumberList;
-import com.xyt.service.operation.OperationService;
+import com.xyt.service.operation.NumberPoolService;
 import com.xyt.util.PageContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Service
 @Transactional
-public class OperationServiceImpl implements OperationService {
+public class NumberPoolServiceImpl implements NumberPoolService {
     @Autowired
     TForwardNumberListMapper tForwardNumberListMapper;
 

@@ -109,4 +109,10 @@
     remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <update id="subCounterByNumber" parameterType="String">
+     update t_forward_number_list
+     set counter = counter - 1
+     where forwardnumber = #{0}
+  </update>
 </mapper>

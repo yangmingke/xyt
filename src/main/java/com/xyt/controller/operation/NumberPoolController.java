@@ -3,7 +3,7 @@ package com.xyt.controller.operation;
 import com.xyt.model.TForwardNumberList;
 import com.xyt.model.TbUcpaasCity;
 import com.xyt.service.CityService;
-import com.xyt.service.operation.OperationService;
+import com.xyt.service.operation.NumberPoolService;
 import com.xyt.util.PageContainer;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ import java.util.Map;
 
 
 @Controller
-@RequestMapping("/operationController")
-public class OperationController {
+@RequestMapping("/numberPoolController")
+public class NumberPoolController {
     @Autowired
-    private OperationService operationService;
+    private NumberPoolService numberPoolService;
     @Autowired
     private CityService cityService;
 
@@ -43,7 +43,7 @@ public class OperationController {
         paras.put("status", StringUtils.isEmpty(status) ? null : status);
         paras.put("currentPage", StringUtils.isEmpty(currentPage) ? 1 : Integer.valueOf(currentPage));
 
-        PageContainer pageContainer = operationService.queryNumberPool(paras);
+        PageContainer pageContainer = numberPoolService.queryNumberPool(paras);
 
         Map<String,Object> model = new HashMap<String, Object>();
         model.put("page",pageContainer);
@@ -55,7 +55,7 @@ public class OperationController {
     @RequestMapping("/deleteNumber")
     @ResponseBody
     public String deleteNumber(int deleteId){
-        return operationService.deleteNumber(deleteId);
+        return numberPoolService.deleteNumber(deleteId);
     }
 
     @RequestMapping("/addNumberPage")
@@ -66,13 +66,13 @@ public class OperationController {
 
     @RequestMapping("/addNumber")
     public ModelAndView addNumber(TForwardNumberList tForwardNumberList){
-        operationService.addNumber(tForwardNumberList);
+        numberPoolService.addNumber(tForwardNumberList);
         return new ModelAndView("redirect:queryNumberPool");
     }
 
     @RequestMapping("/updateNumberPage")
     public ModelAndView updateNumberPage(int numberId){
-        TForwardNumberList numberInfo = operationService.queryNumberInfoById(numberId);
+        TForwardNumberList numberInfo = numberPoolService.queryNumberInfoById(numberId);
         TbUcpaasCity cityInfo = cityService.queryCityByCityId(numberInfo.getAreaid());
         List<TbUcpaasCity> provinceList = cityService.getProvinceList();
         List<TbUcpaasCity> cityList = cityService.queryCitysByProvinceId(cityInfo.getProvinceid());
@@ -87,7 +87,7 @@ public class OperationController {
 
     @RequestMapping("/updateNumber")
     public ModelAndView updateNumber(TForwardNumberList tForwardNumberList){
-        operationService.updateNumber(tForwardNumberList);
+        numberPoolService.updateNumber(tForwardNumberList);
         return new ModelAndView("redirect:queryNumberPool");
     }
 

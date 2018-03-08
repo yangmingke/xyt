@@ -2,16 +2,13 @@ package com.xyt.dao.ucpaas;
 
 import com.xyt.model.TbUcpaasRoam;
 
+import java.util.List;
+import java.util.Map;
+
 public interface TbUcpaasRoamMapper {
-    int deleteByPrimaryKey(Integer roamId);
+    int queryNumberBindingCount(Map<String, Object> paras);
 
-    int insert(TbUcpaasRoam record);
+    List<Map<String,String>> queryNumberBinding(Map<String, Object> paras);
 
-    int insertSelective(TbUcpaasRoam record);
-
-    TbUcpaasRoam selectByPrimaryKey(Integer roamId);
-
-    int updateByPrimaryKeySelective(TbUcpaasRoam record);
-
-    int updateByPrimaryKey(TbUcpaasRoam record);
+    int deleteBinding(int numberId);
 }
