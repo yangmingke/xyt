@@ -10,25 +10,30 @@ function queryData(){
 		$('#notice').text("日期区间必须在同一月份");
 		return false;
 	}
-	/*$.post("/bindingCounterController/queryBindingCounter",{"startTime":startTime,"endTime":endTime},function(data){
-		var json = eval("("+data+")");
-		createMap(json);
-	});*/
+	$.post("/bindingCounterController/queryBindingCounter",{"startTime":startTime,"endTime":endTime},function(rerult){
+		draw(rerult);
+	});
 }
 
-function createMap(data){
-	$('#dateTime').val(data.date);
+function draw(result){
+	$('#dateTime').val(result.date);
 	
 	//画统计图
 	var myChart = echarts.init(document.getElementById('main'));
-	var rateList = data.rate[0]; 
-	var countList = data.rate[1]; 
-	var time = data.time;
-	var rateMax = data.rateMax;
-	if(rateMax > 80){
-		rateMax = 80;
+	var rateList = result.rate[0];
+	var countList = result.rate[1];
+    var time1 = result.time;
+    var timeLine = result.timeLine;
+    var bindList = [];
+    var unList = [];
+    for(var time : timeLine){
+
 	}
-	var countMax = data.countMax;
+    var rateMax = result.rateMax;
+    if(rateMax > 80){
+        rateMax = 80;
+    }
+	var countMax = result.countMax;
 	
 	var colors = ['#d14a61', '#5793f3'];
 
@@ -58,7 +63,7 @@ function createMap(data){
 	            axisTick: {
 	                alignWithLabel: true
 	            },
-	            data: time
+	            data: time1
 	        }
 	    ],
 	    yAxis: [

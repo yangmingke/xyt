@@ -97,7 +97,8 @@
                 </li>
 
                 <li>
-                    <label>引用次数<b>*</b></label><input value="${numberInfo.counter}" name="counter" id="counter" placeholder="如果不可以复用，引用次数最多为1" class="dfinput" style="width:518px;" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
+                    <label>引用次数<b>*</b></label>
+                    <input <c:if test="${numberInfo.id != null}">readonly="readonly"</c:if> value="${numberInfo.counter}" name="counter" id="counter" placeholder="如果不可以复用，引用次数最多为1" class="dfinput" style="width:518px;" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
                     <i style="color: red" class="notice" id="counterText"></i>
                 </li>
 

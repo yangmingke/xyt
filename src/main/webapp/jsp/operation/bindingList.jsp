@@ -79,7 +79,11 @@
                 <td>${bindingInfo.phone}</td>
                 <td>${bindingInfo.forward_phone}</td>
                 <td>${bindingInfo.exp_days}</td>
-                <td>${bindingInfo.call_mode}</td>
+                <td>
+                    <c:if test="${bindingInfo.call_mode == 1}">直接挂断</c:if>
+                    <c:if test="${bindingInfo.call_mode == 2}">转直拨呼叫</c:if>
+                    <c:if test="${bindingInfo.call_mode == 3}">续活APP呼叫</c:if>
+                </td>
                 <td>
                     <c:if test="${bindingInfo.status == 'false'}">失效</c:if>
                     <c:if test="${bindingInfo.status == 'true'}">生效</c:if>

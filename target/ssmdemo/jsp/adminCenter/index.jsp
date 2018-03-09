@@ -22,7 +22,7 @@
 <div class="mainindex">
     <div class="welinfo">
         <span><img src="/images/sun.png" alt="天气"/></span>
-        <b>Admin早上好，欢迎使用信息管理系统</b>
+        <b>Admin早上好，欢迎使用信游通管理系统</b>
     </div>
 
     <div class="xline"></div>
