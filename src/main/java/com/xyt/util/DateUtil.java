@@ -15,124 +15,126 @@ package com.xyt.util;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class DateUtil {
-	
+
     /**
      * 变量：日期格式化类型 - 格式:yyyy/MM/dd
-     * 
+     *
      * @since 1.0
      */
     public static final int DEFAULT = 0;
 
     /**
      * 变量：日期格式化类型 - 格式:yyyy/MM
-     * 
+     *
      * @since 1.0
      */
     public static final int YM = 1;
 
     /**
      * 变量：日期格式化类型 - 格式:yyyy-MM-dd
-     * 
+     *
      * @since 1.0
      */
     public static final int YMR_SLASH = 11;
 
     /**
      * 变量：日期格式化类型 - 格式:yyyyMMdd
-     * 
+     *
      * @since 1.0
      */
     public static final int NO_SLASH = 2;
 
     /**
      * 变量：日期格式化类型 - 格式:yyyyMM
-     * 
+     *
      * @since 1.0
      */
     public static final int YM_NO_SLASH = 3;
 
     /**
      * 变量：日期格式化类型 - 格式:yyyy/MM/dd HH:mm:ss
-     * 
+     *
      * @since 1.0
      */
     public static final int DATE_TIME = 4;
 
     /**
      * 变量：日期格式化类型 - 格式:yyyyMMddHHmmss
-     * 
+     *
      * @since 1.0
      */
     public static final int DATE_TIME_NO_SLASH = 5;
 
     /**
      * 变量：日期格式化类型 - 格式:yyyy/MM/dd HH:mm
-     * 
+     *
      * @since 1.0
      */
     public static final int DATE_HM = 6;
 
     /**
      * 变量：日期格式化类型 - 格式:HH:mm:ss
-     * 
+     *
      * @since 1.0
      */
     public static final int TIME = 7;
 
     /**
      * 变量：日期格式化类型 - 格式:HH:mm
-     * 
+     *
      * @since 1.0
      */
     public static final int HM = 8;
-    
+
     /**
      * 变量：日期格式化类型 - 格式:HHmmss
-     * 
+     *
      * @since 1.0
      */
     public static final int LONG_TIME = 9;
     /**
      * 变量：日期格式化类型 - 格式:HHmm
-     * 
+     *
      * @since 1.0
      */
-    
+
     public static final int SHORT_TIME = 10;
 
     /**
      * 变量：日期格式化类型 - 格式:yyyy-MM-dd HH:mm:ss
-     * 
+     *
      * @since 1.0
      */
     public static final int DATE_TIME_LINE = 12;
-    
+
     /**
      * 变量：日期格式化类型 - 格式:yyyy
-     * 
+     *
      * @since 1.0
      */
-    
+
     public static Date strToDateLong(String strDate) {
     	   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	   ParsePosition pos = new ParsePosition(0);
     	   Date strtodate = formatter.parse(strDate, pos);
     	   return strtodate;
     }
-    
+
     public static final int DATE_TIME_YEAR = 13;
-    
+
     public static String dateToStr(Date date,String pattern) {
        if (date == null)
     	 return null;
        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
        return formatter.format(date);
-    } 
+    }
 
     public static String dateToStr(Date date) {
         return dateToStr(date, "yyyy/MM/dd");
@@ -185,7 +187,7 @@ public class DateUtil {
 		} catch (ParseException e) {
 			return null ;
 		}
-    } 
+    }
 
     public static Date strToDate(String date){
          return strToDate(date, "yyyy/MM/dd");
@@ -226,7 +228,7 @@ public class DateUtil {
     }
     public static Date getCurrentDate() throws ParseException{
     	return new Date();
-    	
+
     }
     @SuppressWarnings("static-access")
 	public static String getYstdDate(){
@@ -240,7 +242,7 @@ public class DateUtil {
     	cl.add(cl.YEAR, -1);
     	return dateToStr(cl.getTime(),DATE_TIME_YEAR);
     }
-    
+
     public static long compare(Date date1,Date date2,long interval){
     	return date2.getTime()+interval-date1.getTime();
     }
@@ -267,5 +269,55 @@ public class DateUtil {
         cl.add(Calendar.MONTH, 0);
         cl.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
         return dateToStr(cl.getTime(),YMR_SLASH);
+    }
+
+    public static List<Date> getBetweenDate(Date beginDate, Date endDate) {
+        if(beginDate.getTime() == endDate.getTime()){
+            return null;
+        }
+        List lDate = new ArrayList();
+        lDate.add(beginDate);//把开始时间加入集合
+        Calendar cal = Calendar.getInstance();
+        //使用给定的 Date 设置此 Calendar 的时间
+        cal.setTime(beginDate);
+        boolean bContinue = true;
+        while (bContinue) {
+            //根据日历的规则，为给定的日历字段添加或减去指定的时间量
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+            // 测试此日期是否在指定日期之后
+            if (endDate.after(cal.getTime())) {
+                lDate.add(cal.getTime());
+            } else {
+                break;
+            }
+        }
+        lDate.add(endDate);//把结束时间加入集合
+        return lDate;
+    }
+
+    public static List<String> getStrBetweenDate(String beginStrDate, String endStrDate) {
+        Date beginDate = strToDate(beginStrDate,YMR_SLASH);
+        Date endDate = strToDate(endStrDate,YMR_SLASH);
+        if(beginDate.getTime() == endDate.getTime()){
+            return null;
+        }
+        List lDate = new ArrayList();
+        lDate.add(beginStrDate);//把开始时间加入集合
+        Calendar cal = Calendar.getInstance();
+        //使用给定的 Date 设置此 Calendar 的时间
+        cal.setTime(beginDate);
+        boolean bContinue = true;
+        while (bContinue) {
+            //根据日历的规则，为给定的日历字段添加或减去指定的时间量
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+            // 测试此日期是否在指定日期之后
+            if (endDate.after(cal.getTime())) {
+                lDate.add(dateToStr(cal.getTime(),YMR_SLASH));
+            } else {
+                break;
+            }
+        }
+        lDate.add(endStrDate);//把结束时间加入集合
+        return lDate;
     }
 }

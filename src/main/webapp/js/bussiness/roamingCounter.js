@@ -4,13 +4,13 @@ $(function(){
 
 function queryData(){
     $('#notice').empty();
-	var startTime = $('#startTime').val();
-    var endTime = $('#endTime').val();
-	if(startTime.substr(0,7) != endTime.substr(0,7)){
+	var startDate = $('#startTime').val();
+    var endDate = $('#endTime').val();
+	if(startDate.substr(0,7) != endDate.substr(0,7)){
 		$('#notice').text("日期区间必须在同一月份");
 		return false;
 	}
-	$.post("/bindingCounterController/queryBindingCounter",{"startTime":startTime,"endTime":endTime},function(rerult){
+	$.post("/roamingCounterController/queryRoamingCounter",{"startDate":startDate,"endDate":endDate},function(rerult){
 		draw(rerult);
 	});
 }

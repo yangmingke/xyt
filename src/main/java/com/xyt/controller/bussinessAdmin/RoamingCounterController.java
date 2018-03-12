@@ -1,7 +1,6 @@
 package com.xyt.controller.bussinessAdmin;
 
-import com.xyt.model.TbBindNumLog;
-import com.xyt.service.bussinessAdmin.BindingCounterService;
+import com.xyt.service.bussinessAdmin.RoamingCounterService;
 import com.xyt.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +14,14 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("bindingCounterController")
-public class BindingCounterController {
+@RequestMapping("roamingCounterController")
+public class RoamingCounterController {
 
     @Autowired
-    BindingCounterService bindingCounterService;
+    RoamingCounterService roamingCounterService;
 
-    @RequestMapping("queryBindingCounterPage")
-    public ModelAndView queryBindingCounterPage(){
+    @RequestMapping("queryRoamingCounterPage")
+    public ModelAndView queryRoamingCounterPage(){
         String endTime = DateUtil.getTdDate();
         String startTime = DateUtil.getDate(-6);
         String monthFirstDay = DateUtil.getMonthFirstDay();
@@ -34,24 +33,25 @@ public class BindingCounterController {
         model.put("endTime", endTime);
         model.put("startTime", startTime);
 
-        return new ModelAndView("bussiness/bindingCounter",model);
+        return new ModelAndView("bussiness/roamingCounter",model);
     }
 
-    @RequestMapping("queryBindingCounter")
+    @RequestMapping("queryRoamingCounter")
     @ResponseBody
-    public Map<String,Object> queryBindingCounter(String startTime, String endTime){
-        String yearMonth =  startTime.substring(0,8);
+    public Map<String,Object> queryRoamingCounter(String startDate, String endDate){
         Map<String,Object> paras = new HashMap<String, Object>();
-        paras.put("yyyyMM",yearMonth.replaceAll("-",""));
-        paras.put("startTime",startTime);
-        paras.put("endTime",endTime);
-
         //设置日期横坐标
-        List<String> timeLine = DateUtil.getStrBetweenDate(startTime,endTime);
+        List<String> timeLine = DateUtil.getStrBetweenDate(startDate, endDate);
 
-        List<Map<String,Object>> bindingList = bindingCounterService.queryBindingCounter(paras);
+        List<String> dateList = new ArrayList<String>();
+        for (String date : timeLine){
+            dateList.add(date.replaceAll("-",""));
+        }
+        paras.put("dateList",dateList);
+
+        List<Map<String,Object>> roamingList = roamingCounterService.queryRoamingCounter(paras);
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("bindingList",bindingList);
+        result.put("roamingList",roamingList);
         result.put("timeLine",timeLine);
 
         return result;

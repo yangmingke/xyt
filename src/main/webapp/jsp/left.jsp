@@ -69,7 +69,7 @@
         <div class="title"><span><img src="/images/leftico03.png"/></span>运营管理</div>
         <ul class="menuson">
             <li><cite></cite><a href="/bindingCounterController/queryBindingCounterPage" target="rightFrame">号码绑定次数统计</a><i></i></li>
-            <li><cite></cite><a href="/#" target="rightFrame">漫游通话量统计</a><i></i></li>
+            <li><cite></cite><a href="/roamingCounterController/queryRoamingCounterPage" target="rightFrame">漫游通话量统计</a><i></i></li>
         </ul>
     </dd>
 

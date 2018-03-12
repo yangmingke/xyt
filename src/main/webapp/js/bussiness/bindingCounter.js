@@ -16,35 +16,47 @@ function queryData(){
 }
 
 function draw(result){
-	$('#dateTime').val(result.date);
-	
 	//画统计图
 	var myChart = echarts.init(document.getElementById('main'));
-	var rateList = result.rate[0];
-	var countList = result.rate[1];
-    var time1 = result.time;
     var timeLine = result.timeLine;
-    var bindList = [];
-    var unList = [];
-    for(var time : timeLine){
+    var bindingList = result.bindingList;
 
+    var bindList = [];//绑定
+    var unbindList = [];//解绑
+	var k = 0;
+    var i = 0
+    while(i < timeLine.length){//bindingList数据为按时间升序排列，所以可以采取以下算法
+		var bindCount = 0;
+        var unbindCount = 0;
+		for(var j = 0; j < 2 && k < bindingList.length; j++){
+			if(bindingList[k].createDate == timeLine[i]){
+				if(bindingList[k].bindType == 0){
+                    bindCount = bindingList[k].count;
+				}else if(bindingList[k].bindType == 1){
+                    unbindCount = bindingList[k].count;
+				}
+				k++;
+			}
+		}
+        bindList.push(bindCount);
+        unbindList.push(unbindCount);
+        i++;
 	}
-    var rateMax = result.rateMax;
-    if(rateMax > 80){
-        rateMax = 80;
-    }
-	var countMax = result.countMax;
-	
-	var colors = ['#d14a61', '#5793f3'];
 
 	option = {
-	    color: colors,
 	    tooltip: {
 	        trigger: 'axis'
 	    },
 	    grid: {
 	        right: '20%'
 	    },
+        dataZoom: [
+            {
+                show: true,
+                start: 0,
+                end: 100
+            }
+        ],
 	    toolbox: {
 	        feature: {
 	            dataView: {show: true, readOnly: false},
@@ -53,7 +65,7 @@ function draw(result){
 	        }
 	    },
 	    legend: {
-	        data:['丢包率','丢包次数'],
+	        data:['绑定次数','解绑次数'],
 		    x: 'left',
 		    padding: [10, 20,0,20]
 	    },
@@ -63,36 +75,14 @@ function draw(result){
 	            axisTick: {
 	                alignWithLabel: true
 	            },
-	            data: time1
+	            data: timeLine
 	        }
 	    ],
 	    yAxis: [
 	        {
 	            type: 'value',
-	            name: '丢包率',
-	            min: 0,
-	            max: (rateMax + 20).toFixed(2),
+	            name: '',
 	            position: 'left',
-	            axisLine: {
-	                lineStyle: {
-	                    color: colors[0]
-	                }
-	            },
-	            axisLabel: {
-	                formatter: '{value} %'
-	            }
-	        },
-	        {
-	            type: 'value',
-	            name: '丢包次数',
-	            min: 0,
-	            max: Math.round(countMax+0.5),
-	            position: 'right',
-	            axisLine: {
-	                lineStyle: {
-	                    color: colors[1]
-	                }
-	            },
 	            axisLabel: {
 	                formatter: '{value} 次'
 	            }
@@ -100,17 +90,18 @@ function draw(result){
 	    ],
 	    series: [
 	        {
-	            name:'丢包率',
+	            name:'绑定次数',
 	            type:'line',
 //	            animation:false,
-	            data:rateList
+				smooth:0.3,
+	            data:bindList
 	        },
 	        {
-	            name:'丢包次数',
+	            name:'解绑次数',
 	            type:'line',
-	            yAxisIndex: 1,
 //	            animation:false,
-	            data:countList
+                smooth:0.3,
+	            data:unbindList
 	        }
 	    ]
 	};

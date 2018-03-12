@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.flypaas.dao.TbBillCallLogMapper" >
+<mapper namespace="com.xyt.dao.statistic.TbBillCallLogMapper" >
   <resultMap id="BaseResultMap" type="com.xyt.model.TbBillCallLog" >
     <id column="call_id" property="callId" jdbcType="INTEGER" />
     <result column="session_id" property="sessionId" jdbcType="INTEGER" />
@@ -60,5 +60,11 @@
     call_date, call_year, call_month, call_day, call_hour, call_week, call_session_id, 
     show_type, hungup_reason, delay, continued, rest
   </sql>
+  
+  <select id="queryRoamingCounter" parameterType="map" resultType="map">
+    <foreach collection="dateList" index="index" item="date"  separator=" union " >
+      select call_type,start_time from tb_bill_call_log_${date}
+    </foreach>
+  </select>
 
 </mapper>
