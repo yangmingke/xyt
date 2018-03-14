@@ -63,7 +63,18 @@
   
   <select id="queryRoamingCounter" parameterType="map" resultType="map">
     <foreach collection="dateList" index="index" item="date"  separator=" union " >
-      select call_type,start_time from tb_bill_call_log_${date}
+      SELECT
+      call_type callType,
+      sum(call_time) totalTime,
+      #{date} createDate
+      FROM
+      tb_bill_call_log_${date}
+      WHERE
+      gate_name = '359d148856444c6e83e333e8c11e4641'
+      AND agent_name = '93d971224733ba94921c70c0eb906104'
+      AND call_type IN (1, 7)
+      GROUP BY
+      call_type
     </foreach>
   </select>
 

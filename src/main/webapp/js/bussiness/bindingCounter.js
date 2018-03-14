@@ -43,7 +43,7 @@ function draw(result){
         i++;
 	}
 
-	option = {
+	var option = {
 	    tooltip: {
 	        trigger: 'axis'
 	    },

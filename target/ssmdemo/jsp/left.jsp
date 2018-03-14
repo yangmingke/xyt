@@ -77,7 +77,7 @@
     <dd>
         <div class="title"><span><img src="/images/leftico04.png"/></span>财务管理</div>
         <ul class="menuson">
-            <li><cite></cite><a href="/#" target="rightFrame">充值统计</a><i></i></li>
+            <li><cite></cite><a href="/rechargeController/queryRechargeStatisticsPage" target="rightFrame">充值统计</a><i></i></li>
         </ul>
 
     </dd>

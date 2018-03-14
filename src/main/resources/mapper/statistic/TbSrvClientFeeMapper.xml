@@ -27,8 +27,21 @@
     client_balance, client_name, client_number, pwd, token, status, charges, client_type, 
     mobile, ctype
   </sql>
-  <select id="get" resultMap="BaseResultMap">
-      SELECT * from tb_srv_client_fee_201802
+
+  <select id="queryRechargeStatistics" parameterType="map" resultType="map">
+    SELECT
+    count(*) count,
+    date_format(create_date, '%Y-%m-%d') createDate,
+    bind_type bindType
+    FROM
+    tb_bind_num_log_${yyyyMM}
+    GROUP BY
+    createDate,
+    bind_type
+    HAVING
+    createDate BETWEEN #{startTime} AND #{endTime}
+    ORDER BY
+    createDate;
   </select>
 
 </mapper>

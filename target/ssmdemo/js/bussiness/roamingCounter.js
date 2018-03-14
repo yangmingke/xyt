@@ -19,31 +19,31 @@ function draw(result){
 	//画统计图
 	var myChart = echarts.init(document.getElementById('main'));
     var timeLine = result.timeLine;
-    var bindingList = result.bindingList;
+    var roamingList = result.roamingList;
 
-    var bindList = [];//绑定
-    var unbindList = [];//解绑
+    var inList = [];//呼入
+    var outList = [];//呼出
 	var k = 0;
     var i = 0
-    while(i < timeLine.length){//bindingList数据为按时间升序排列，所以可以采取以下算法
-		var bindCount = 0;
-        var unbindCount = 0;
-		for(var j = 0; j < 2 && k < bindingList.length; j++){
-			if(bindingList[k].createDate == timeLine[i]){
-				if(bindingList[k].bindType == 0){
-                    bindCount = bindingList[k].count;
-				}else if(bindingList[k].bindType == 1){
-                    unbindCount = bindingList[k].count;
+    while(i < timeLine.length){//roamingList数据为按时间升序排列，所以可以采取以下算法
+		var inCount = 0;
+        var outCount = 0;
+		for(var j = 0; j < 2 && k < roamingList.length; j++){
+			if(roamingList[k].createDate == timeLine[i].replace("-","").replace("-","")){
+				if(roamingList[k].callType == 7){
+                    inCount = roamingList[k].totalTime;
+				}else if(roamingList[k].callType == 1){
+                    outCount = roamingList[k].totalTime;
 				}
 				k++;
 			}
 		}
-        bindList.push(bindCount);
-        unbindList.push(unbindCount);
+        inList.push(inCount);
+        outList.push(outCount);
         i++;
 	}
 
-	option = {
+	var option = {
 	    tooltip: {
 	        trigger: 'axis'
 	    },
@@ -65,7 +65,7 @@ function draw(result){
 	        }
 	    },
 	    legend: {
-	        data:['绑定次数','解绑次数'],
+	        data:['呼入时长','呼出时长'],
 		    x: 'left',
 		    padding: [10, 20,0,20]
 	    },
@@ -84,24 +84,24 @@ function draw(result){
 	            name: '',
 	            position: 'left',
 	            axisLabel: {
-	                formatter: '{value} 次'
+	                formatter: '{value} 秒'
 	            }
 	        }
 	    ],
 	    series: [
 	        {
-	            name:'绑定次数',
+	            name:'呼入时长',
 	            type:'line',
 //	            animation:false,
 				smooth:0.3,
-	            data:bindList
+	            data:inList
 	        },
 	        {
-	            name:'解绑次数',
+	            name:'呼出时长',
 	            type:'line',
 //	            animation:false,
                 smooth:0.3,
-	            data:unbindList
+	            data:outList
 	        }
 	    ]
 	};
