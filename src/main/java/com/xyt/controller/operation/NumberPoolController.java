@@ -75,7 +75,7 @@ public class NumberPoolController {
         TForwardNumberList numberInfo = numberPoolService.queryNumberInfoById(numberId);
         TbUcpaasCity cityInfo = cityService.queryCityByCityId(numberInfo.getAreaid());
         List<TbUcpaasCity> provinceList = cityService.getProvinceList();
-        List<TbUcpaasCity> cityList = cityService.queryCitysByProvinceId(cityInfo.getProvinceid());
+        List<TbUcpaasCity> cityList = cityService.queryCitiesByProvinceId(cityInfo.getProvinceid());
 
         Map<String,Object> model = new HashMap<String, Object>();
         model.put("numberInfo",numberInfo);

@@ -157,7 +157,7 @@
     function provinceChange() {
         $('#areaid').empty();
         var provinceId = $('#province option:selected').val();
-        $.post("/cityController/queryCitysByProvinceId",{provinceId:provinceId},function(data){
+        $.post("/cityController/queryCitiesByProvinceId",{provinceId:provinceId},function(data){
             $.each(data, function (index, item) {
                 if(index == 0){
                     $('#areaid').append("<option selected='selected' value = '"+item.cityid+"'>"+item.city+"</option>");

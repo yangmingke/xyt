@@ -15,9 +15,9 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
-    @RequestMapping("queryCitysByProvinceId")
+    @RequestMapping("queryCitiesByProvinceId")
     @ResponseBody
-    public List<TbUcpaasCity> queryCitysByProvinceId(int provinceId){
-        return  cityService.queryCitysByProvinceId(provinceId);
+    public List<TbUcpaasCity> queryCitiesByProvinceId(int provinceId){
+        return  cityService.queryCitiesByProvinceId(provinceId);
     }
 }

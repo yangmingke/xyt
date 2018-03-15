@@ -10,8 +10,13 @@ function queryData(){
 		$('#notice').text("日期区间必须在同一月份");
 		return false;
 	}
-	$.post("/roamingCounterController/queryRoamingCounter",{"startDate":startDate,"endDate":endDate},function(rerult){
-		draw(rerult);
+	$.post("/roamingCounterController/queryRoamingCounter",{"startDate":startDate,"endDate":endDate},function(result){
+        if(result.result == "fail"){
+            $('#notice').text(result.describe);
+            return false;
+        }else if(result.result == "success") {
+            draw(result);
+        }
 	});
 }
 

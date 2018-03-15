@@ -15,7 +15,7 @@
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 加载配置文件 -->
-    <context:property-placeholder location="classpath:db.properties" />
+    <context:property-placeholder location="classpath:db_${spring.profiles.active}.properties" />
 
 	<!-- 数据源 ucpaas-->
     <bean id="dataSourceUcpaas" class="org.apache.commons.dbcp.BasicDataSource" >

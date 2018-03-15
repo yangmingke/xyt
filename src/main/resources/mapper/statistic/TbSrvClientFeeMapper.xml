@@ -30,18 +30,20 @@
 
   <select id="queryRechargeStatistics" parameterType="map" resultType="map">
     SELECT
-    count(*) count,
-    date_format(create_date, '%Y-%m-%d') createDate,
-    bind_type bindType
+        sum(fee)/1000000 totalFee,
+        date_format(create_date, '%Y-%m-%d') createDate
     FROM
-    tb_bind_num_log_${yyyyMM}
+        tb_srv_client_fee_${yyyyMM}
+    WHERE stype = '0'
+    AND sid = '93d971224733ba94921c70c0eb906104'
+    AND app_sid = '359d148856444c6e83e333e8c11e4641'
     GROUP BY
-    createDate,
-    bind_type
+        createDate
     HAVING
-    createDate BETWEEN #{startTime} AND #{endTime}
+        createDate BETWEEN #{startDate}
+    AND #{endDate}
     ORDER BY
-    createDate;
+        createDate;
   </select>
 
 </mapper>

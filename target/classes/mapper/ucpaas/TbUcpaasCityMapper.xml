@@ -26,7 +26,7 @@
     from tb_ucpaas_city2
   </select>
 
-  <select id="queryCitysByProvinceId" parameterType="int" resultMap="BaseResultMap">
+  <select id="queryCitiesByProvinceId" parameterType="int" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List"/>
     FROM tb_ucpaas_city2
     WHERE provinceid = #{0}

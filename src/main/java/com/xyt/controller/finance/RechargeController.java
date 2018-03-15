@@ -21,36 +21,44 @@ public class RechargeController {
 
     @RequestMapping("queryRechargeStatisticsPage")
     public ModelAndView queryRechargeStatisticsPage(){
-        String endTime = DateUtil.getTdDate();
-        String startTime = DateUtil.getDate(-6);
+        String endDate = DateUtil.getTdDate();
+        String startDate = DateUtil.getDate(-6);
         String monthFirstDay = DateUtil.getMonthFirstDay();
-        if(monthFirstDay.compareTo(startTime) > 0){
-            startTime = monthFirstDay;
+        if(monthFirstDay.compareTo(startDate) > 0){
+            startDate = monthFirstDay;
         }
 
         Map<String,String> model = new HashMap<String, String>();
-        model.put("endTime", endTime);
-        model.put("startTime", startTime);
+        model.put("startDate", startDate);
+        model.put("endDate", endDate);
 
         return new ModelAndView("finance/rechargeStatistics",model);
     }
 
     @RequestMapping("queryRechargeStatistics")
     @ResponseBody
-    public Map<String,Object> queryRechargeStatistics(String startTime, String endTime){
-        String yearMonth =  startTime.substring(0,8);
+    public Map<String,Object> queryRechargeStatistics(String startDate, String endDate){
+        String yearMonth =  startDate.substring(0,8);
         Map<String,Object> paras = new HashMap<String, Object>();
         paras.put("yyyyMM",yearMonth.replaceAll("-",""));
-        paras.put("startTime",startTime);
-        paras.put("endTime",endTime);
+        paras.put("startDate", startDate);
+        paras.put("endDate", endDate);
 
         //设置日期横坐标
-        List<String> timeLine = DateUtil.getStrBetweenDate(startTime,endTime);
+        List<String> timeLine = DateUtil.getStrBetweenDate(startDate, endDate);
 
-        List<Map<String,Object>> rechargeList = rechargeService.queryRechargeStatistics(paras);
         Map<String, Object> result = new HashMap<String, Object>();
+        List<Map<String,Object>> rechargeList = null;
+        try {
+            rechargeList = rechargeService.queryRechargeStatistics(paras);
+        }catch (Exception e){
+            result.put("result","fail");
+            result.put("describe","查询数据库出错！");
+            return result;
+        }
         result.put("rechargeList",rechargeList);
         result.put("timeLine",timeLine);
+        result.put("result","success");
 
         return result;
     }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface CityService {
     List<TbUcpaasCity> getProvinceList();
 
-    List<TbUcpaasCity> queryCitysByProvinceId(int provinceId);
+    List<TbUcpaasCity> queryCitiesByProvinceId(int provinceId);
 
     TbUcpaasCity queryCityByCityId(String areaid);
 }

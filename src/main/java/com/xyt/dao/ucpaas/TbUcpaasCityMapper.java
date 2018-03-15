@@ -9,7 +9,7 @@ public interface TbUcpaasCityMapper {
 
     List<TbUcpaasCity> getProvinceList();
 
-    List<TbUcpaasCity> queryCitysByProvinceId(int provinceId);
+    List<TbUcpaasCity> queryCitiesByProvinceId(int provinceId);
 
     TbUcpaasCity queryCityByCityId(String areaid);
 }

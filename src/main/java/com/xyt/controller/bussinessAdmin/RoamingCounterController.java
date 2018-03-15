@@ -49,10 +49,18 @@ public class RoamingCounterController {
         }
         paras.put("dateList",dateList);
 
-        List<Map<String,Object>> roamingList = roamingCounterService.queryRoamingCounter(paras);
         Map<String, Object> result = new HashMap<String, Object>();
+        List<Map<String, Object>> roamingList = null;
+        try {
+            roamingList = roamingCounterService.queryRoamingCounter(paras);
+        }catch (Exception e){
+            result.put("result","fail");
+            result.put("describe","查询数据库出错！");
+            return result;
+        }
         result.put("roamingList",roamingList);
         result.put("timeLine",timeLine);
+        result.put("result","success");
 
         return result;
     }

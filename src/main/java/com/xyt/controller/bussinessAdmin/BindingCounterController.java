@@ -47,10 +47,19 @@ public class BindingCounterController {
         //设置日期横坐标
         List<String> timeLine = DateUtil.getStrBetweenDate(startTime,endTime);
 
-        List<Map<String,Object>> bindingList = bindingCounterService.queryBindingCounter(paras);
         Map<String, Object> result = new HashMap<String, Object>();
+        List<Map<String,Object>> bindingList = null;
+        try {
+            bindingList = bindingCounterService.queryBindingCounter(paras);
+        }catch (Exception e){
+            result.put("result","fail");
+            result.put("describe","查询数据库出错！");
+            return result;
+        }
+
         result.put("bindingList",bindingList);
         result.put("timeLine",timeLine);
+        result.put("result","success");
 
         return result;
     }

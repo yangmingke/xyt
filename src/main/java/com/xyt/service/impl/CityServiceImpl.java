@@ -21,8 +21,8 @@ public class CityServiceImpl implements CityService {
         return tbUcpaasCityMapper.getProvinceList();
     }
 
-    public List<TbUcpaasCity> queryCitysByProvinceId(int provinceId) {
-        return tbUcpaasCityMapper.queryCitysByProvinceId(provinceId);
+    public List<TbUcpaasCity> queryCitiesByProvinceId(int provinceId) {
+        return tbUcpaasCityMapper.queryCitiesByProvinceId(provinceId);
     }
 
     public TbUcpaasCity queryCityByCityId(String areaid) {

@@ -32,8 +32,8 @@
         <input name="currentPage" id="currentPage" value="" hidden="hidden">
         <div class="tools">
             <ul class="seachform">
-                <li><label>开始日期</label><input type="text" class="Wdate" id="startTime" value="${startTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\')}'})"/> </li>
-                <li><label>结束如期</label><input type="text" class="Wdate" id="endTime" value="${endTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'startTime\')}'})"/></li>
+                <li><label>开始日期</label><input type="text" class="Wdate" id="startTime" value="${startDate}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\')}'})"/> </li>
+                <li><label>结束如期</label><input type="text" class="Wdate" id="endTime" value="${endDate}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'startTime\')}'})"/></li>
                 <li>
                     <label>&nbsp;</label><input type="button" class="scbtn" value="查询" onclick="queryData()"/>
                     <i style="color: red" id="notice"></i>

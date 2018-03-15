@@ -27,8 +27,23 @@
     client_balance, client_name, client_number, pwd, token, status, charges, client_type, 
     mobile, ctype
   </sql>
-  <select id="get" resultMap="BaseResultMap">
-      SELECT * from tb_srv_client_fee_201802
+
+  <select id="queryRechargeStatistics" parameterType="map" resultType="map">
+    SELECT
+        sum(fee)/1000000 totalFee,
+        date_format(create_date, '%Y-%m-%d') createDate
+    FROM
+        tb_srv_client_fee_${yyyyMM}
+    WHERE stype = '0'
+    AND sid = '93d971224733ba94921c70c0eb906104'
+    AND app_sid = '359d148856444c6e83e333e8c11e4641'
+    GROUP BY
+        createDate
+    HAVING
+        createDate BETWEEN #{startDate}
+    AND #{endDate}
+    ORDER BY
+        createDate;
   </select>
 
 </mapper>
