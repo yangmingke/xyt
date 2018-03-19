@@ -165,6 +165,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>ssmdemo</finalName>
+        <finalName>xyt</finalName>
     </build>
 </project>
