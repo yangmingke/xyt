@@ -31,7 +31,7 @@ function draw(result){
     var i = 0
     while(i < timeLine.length){// rechargeList 数据为按时间升序排列，所以可以采取以下算法
 		var totalFee = 0;
-		if(rechargeList[k].createDate == timeLine[i]){
+		if(rechargeList.length > 0 && rechargeList[k].createDate == timeLine[i]){
 			totalFee = rechargeList[k].totalFee;
 			k++;
 		}

@@ -34,7 +34,7 @@ function draw(result){
 		var inCount = 0;
         var outCount = 0;
 		for(var j = 0; j < 2 && k < roamingList.length; j++){
-			if(roamingList[k].createDate == timeLine[i].replace("-","").replace("-","")){
+			if(roamingList.length > 0 && roamingList[k].createDate == timeLine[i].replace("-","").replace("-","")){
 				if(roamingList[k].callType == 7){
                     inCount = roamingList[k].totalTime;
 				}else if(roamingList[k].callType == 1){

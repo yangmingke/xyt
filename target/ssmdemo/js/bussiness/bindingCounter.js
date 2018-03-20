@@ -34,7 +34,7 @@ function draw(result){
 		var bindCount = 0;
         var unbindCount = 0;
 		for(var j = 0; j < 2 && k < bindingList.length; j++){
-			if(bindingList[k].createDate == timeLine[i]){
+			if(bindingList.length > 0 && bindingList[k].createDate == timeLine[i]){
 				if(bindingList[k].bindType == 0){
                     bindCount = bindingList[k].count;
 				}else if(bindingList[k].bindType == 1){

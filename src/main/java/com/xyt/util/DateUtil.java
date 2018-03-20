@@ -272,10 +272,11 @@ public class DateUtil {
     }
 
     public static List<Date> getBetweenDate(Date beginDate, Date endDate) {
-        if(beginDate.getTime() == endDate.getTime()){
-            return null;
-        }
         List lDate = new ArrayList();
+        if(beginDate.getTime() == endDate.getTime()){
+            lDate.add(beginDate);
+            return lDate;
+        }
         lDate.add(beginDate);//把开始时间加入集合
         Calendar cal = Calendar.getInstance();
         //使用给定的 Date 设置此 Calendar 的时间
@@ -296,12 +297,13 @@ public class DateUtil {
     }
 
     public static List<String> getStrBetweenDate(String beginStrDate, String endStrDate) {
+        List lDate = new ArrayList();
         Date beginDate = strToDate(beginStrDate,YMR_SLASH);
         Date endDate = strToDate(endStrDate,YMR_SLASH);
         if(beginDate.getTime() == endDate.getTime()){
-            return null;
+            lDate.add(beginStrDate);
+            return lDate;
         }
-        List lDate = new ArrayList();
         lDate.add(beginStrDate);//把开始时间加入集合
         Calendar cal = Calendar.getInstance();
         //使用给定的 Date 设置此 Calendar 的时间

@@ -34,7 +34,7 @@ public class LogoutFilter implements Filter  {
 
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
-		
+
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse  response = (HttpServletResponse ) resp;
@@ -45,7 +45,7 @@ public class LogoutFilter implements Filter  {
             chain.doFilter(req, resp);
             return;
         }
-        
+
         HttpSession session = request.getSession();
 		Object u = session.getAttribute("adminSession");
 		if(u==null){
