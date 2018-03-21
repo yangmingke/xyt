@@ -174,7 +174,7 @@ h2 {
 }
 
 .loginuser {
-    width: 299px;
+    width: 345px;
     height: 48px;
     background: url(../images/loginuser.png) no-repeat;
     border: none;
@@ -185,7 +185,7 @@ h2 {
 }
 
 .loginpwd {
-    width: 299px;
+    width: 345px;
     height: 48px;
     background: url(../images/loginpassword.png) no-repeat;
     border: none;
