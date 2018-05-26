@@ -23,6 +23,7 @@
     tb_ucpaas_city2 c
     ON t.areaid = c.cityid
     where 1=1
+    and business=1
     <if test="city != null" >
       and c.city like CONCAT('%',#{city,jdbcType=VARCHAR},'%')
     </if>
@@ -58,6 +59,7 @@
       tb_ucpaas_city2 c
     on t.areaid = c.cityid
     where 1=1
+    and business=1
     <if test="city != null" >
       and c.city like CONCAT('%',#{city,jdbcType=VARCHAR},'%')
     </if>
@@ -84,10 +86,10 @@
   <insert id="addNumber" parameterType="com.xyt.model.TForwardNumberList" >
     insert into t_forward_number_list (areaid, isp,
     multi, counter, forwardnumber,
-    type, status, remark)
+    type, status, remark, business)
     values (#{areaid,jdbcType=VARCHAR}, #{isp,jdbcType=INTEGER},
     #{multi,jdbcType=INTEGER}, #{counter,jdbcType=INTEGER}, #{forwardnumber,jdbcType=VARCHAR},
-    #{type,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR})
+    #{type,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 1)
   </insert>
 
   <select id="queryNumberInfoById" resultMap="BaseResultMap" parameterType="int" >
