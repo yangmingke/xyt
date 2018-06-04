@@ -36,6 +36,9 @@
         <url-pattern>/numberPoolController/*</url-pattern>
         <url-pattern>/userController/*</url-pattern>
         <url-pattern>/cityController/*</url-pattern>
+        <url-pattern>/orderController/*</url-pattern>
+        <url-pattern>/qrCodeCounterController/*</url-pattern>
+        <url-pattern>/qrcodeController/*</url-pattern>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 

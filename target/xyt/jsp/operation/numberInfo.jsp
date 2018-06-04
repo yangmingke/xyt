@@ -197,7 +197,7 @@
             correct = false;
         }
         if(areaid == ""){
-            $('#areaText').text("省份不能为空");
+            $('#areaText').text("城市不能为空");
             correct = false;
         }
         if(correct && confirm("确认提交?")){

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyt.dao.statistic.TbQrCodeMapper">
+
+    <select id="queryQcCodeCounter" parameterType="map" resultType="map">
+        <foreach collection="dateList" index="index" item="date" separator=" union ">
+            SELECT
+            count(*) count,
+            #{date} createDate
+            FROM
+            tb_trade_order_history_${date}
+        </foreach>
+    </select>
+    <select id="queryQrcodeCall" parameterType="map" resultType="map">
+        <foreach collection="dateList" index="index" item="date"  separator=" union " >
+            SELECT
+            IFNULL(sum(call_time),0) totalTime,
+            #{date} createDate
+            FROM
+            tb_bill_call_log_${date}
+            WHERE
+            gate_name = '26690f1b03504d7fa5b9a0a8badf07e6'
+            AND agent_name = '93d971224733ba94921c70c0eb906104'
+            AND call_type = 1
+        </foreach>
+    </select>
+
+</mapper>

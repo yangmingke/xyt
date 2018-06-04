@@ -72,28 +72,28 @@
         </thead>
         <tbody>
         <%int i = 1; %>
-        <c:forEach var="bindingInfo" items="${page.resultMap}">
+        <c:forEach var="OrderInfo" items="${page.resultMap}">
             <tr>
                 <td><%=i++%></td>
-                <td>${bindingInfo.client_number}</td>
-                <td>${bindingInfo.phone}</td>
-                <td>${bindingInfo.forward_phone}</td>
-                <td>${bindingInfo.exp_days}</td>
+                <td>${OrderInfo.client_number}</td>
+                <td>${OrderInfo.phone}</td>
+                <td>${OrderInfo.forward_phone}</td>
+                <td>${OrderInfo.exp_days}</td>
                 <td>
-                    <c:if test="${bindingInfo.call_mode == 1}">直接挂断</c:if>
-                    <c:if test="${bindingInfo.call_mode == 2}">转直拨呼叫</c:if>
-                    <c:if test="${bindingInfo.call_mode == 3}">续活APP呼叫</c:if>
+                    <c:if test="${OrderInfo.call_mode == 1}">直接挂断</c:if>
+                    <c:if test="${OrderInfo.call_mode == 2}">转直拨呼叫</c:if>
+                    <c:if test="${OrderInfo.call_mode == 3}">续活APP呼叫</c:if>
                 </td>
                 <td>
-                    <c:if test="${bindingInfo.status == 'false'}">失效</c:if>
-                    <c:if test="${bindingInfo.status == 'true'}">生效</c:if>
+                    <c:if test="${OrderInfo.status == 'false'}">失效</c:if>
+                    <c:if test="${OrderInfo.status == 'true'}">生效</c:if>
                 </td>
-                <td><fmt:formatDate value="${bindingInfo.next_date}" pattern="yyyy-MM-dd" /></td>
-                <td><fmt:formatDate value="${bindingInfo.exp_date}" pattern="yyyy-MM-dd" /></td>
-                <td><fmt:formatDate value="${bindingInfo.update_date}" pattern="yyyy-MM-dd" /></td>
-                <td><fmt:formatDate value="${bindingInfo.create_date}" pattern="yyyy-MM-dd" /></td>
+                <td><fmt:formatDate value="${OrderInfo.next_date}" pattern="yyyy-MM-dd" /></td>
+                <td><fmt:formatDate value="${OrderInfo.exp_date}" pattern="yyyy-MM-dd" /></td>
+                <td><fmt:formatDate value="${OrderInfo.update_date}" pattern="yyyy-MM-dd" /></td>
+                <td><fmt:formatDate value="${OrderInfo.create_date}" pattern="yyyy-MM-dd" /></td>
                 <td>
-                    <a href="#" class="tablelink delete" onclick="deleteNumber('${bindingInfo.roam_id}','${bindingInfo.forward_phone}')"> 删除</a>
+                    <a href="#" class="tablelink delete" onclick="deleteNumber('${OrderInfo.roam_id}','${OrderInfo.forward_phone}')"> 删除</a>
                 </td>
             </tr>
         </c:forEach>

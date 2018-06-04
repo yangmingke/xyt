@@ -4,9 +4,11 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>绑定关系</title>
+    <title>二维码管理</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/select-ui.min.js"></script>
+    <link href="/css/select.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -36,19 +38,31 @@
     <span>位置：</span>
     <ul class="placeul">
         <li><a href="javascript:void(0);">运维管理</a></li>
-        <li><a href="javascript:void(0);">绑定关系</a></li>
+        <li><a href="javascript:void(0);">二维码管理</a></li>
     </ul>
 </div>
 
 <div class="rightinfo">
-    <form action="/bindingController/queryNumberBinding" id="dataForm" method="post">
+    <form action="/qrcodeController/queryQrCodeList" id="dataForm" method="post">
         <input name="currentPage" id="currentPage" value="" hidden="hidden">
         <div class="tools">
             <ul class="seachform">
-                <li><label>用户ID</label><input maxlength="14" name="clientNumber" value="${paras.clientNumber}" class="scinput" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></li>
-                <li><label>手机号</label><input maxlength="11" name="phone" value="${paras.phone}" class="scinput" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></li>
-                <li><label>中转号</label><input maxlength="11" name="forwardPhone" value="${paras.forwardPhone}" class="scinput" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></li>
+                <li><label>二维码ID</label><input name="qrcode" value="${paras.qrcode}" class="scinput"/></li>
+                <li><label>用户ID</label><input name="clientnum" value="${paras.clientnum}" class="scinput"/></li>
+                <li><label>绑定手机号</label><input name="bindnum" value="${paras.bindnum}" class="scinput" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></li>
+
+                <li><label>二维码状态</label>
+                    <div class="vocation">
+                        <select class="select3" name="status">
+                            <option value="">全部</option>
+                            <option value="0" <c:if test="${paras.status == 0}">selected="selected"</c:if>>无效</option>
+                            <option value="1" <c:if test="${paras.status == 1}">selected="selected"</c:if>>就绪</option>
+                            <option value="2" <c:if test="${paras.status == 2}">selected="selected"</c:if>>激活</option>
+                        </select>
+                    </div>
+                </li>
                 <li><label>&nbsp;</label><input type="submit" class="scbtn" value="查询"/></li>
+                <%--<a class="toolbar" href="/qrcodeController/addQrCodePage"><li class="click"><span><img src="/images/t01.png" /></span>添加</li></a>--%>
             </ul>
         </div>
     </form>
@@ -57,16 +71,15 @@
         <thead>
         <tr>
             <th>序号</th>
-            <th>ID号</th>
-            <th>手机号</th>
-            <th>中转号</th>
-            <th>租用天数</th>
-            <th>转呼模式</th>
+            <th>二维码ID</th>
+            <th>用户ID</th>
+            <th>绑定号码</th>
+            <th>类型</th>
             <th>状态</th>
-            <th>下次扣费时间</th>
-            <th>过期时间</th>
-            <th>更新时间</th>
             <th>创建时间</th>
+            <th>生效时间</th>
+            <th>失效时间</th>
+            <th>生存时间</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -75,25 +88,26 @@
         <c:forEach var="OrderInfo" items="${page.resultMap}">
             <tr>
                 <td><%=i++%></td>
-                <td>${OrderInfo.client_number}</td>
-                <td>${OrderInfo.phone}</td>
-                <td>${OrderInfo.forward_phone}</td>
-                <td>${OrderInfo.exp_days}</td>
+                <td>${OrderInfo.qrcode}</td>
+                <td>${OrderInfo.clientnum}</td>
+                <td>${OrderInfo.bindnum}</td>
                 <td>
-                    <c:if test="${OrderInfo.call_mode == 1}">直接挂断</c:if>
-                    <c:if test="${OrderInfo.call_mode == 2}">转直拨呼叫</c:if>
-                    <c:if test="${OrderInfo.call_mode == 3}">续活APP呼叫</c:if>
+                    <c:if test="${OrderInfo.qrtype == 0}">通用类型</c:if>
+                    <c:if test="${OrderInfo.qrtype == 1}">挪车类型</c:if>
                 </td>
                 <td>
-                    <c:if test="${OrderInfo.status == 'false'}">失效</c:if>
-                    <c:if test="${OrderInfo.status == 'true'}">生效</c:if>
+                    <c:if test="${OrderInfo.status == 0}">无效</c:if>
+                    <c:if test="${OrderInfo.status == 1}">就绪</c:if>
+                    <c:if test="${OrderInfo.status == 2}">激活</c:if>
                 </td>
-                <td><fmt:formatDate value="${OrderInfo.next_date}" pattern="yyyy-MM-dd" /></td>
-                <td><fmt:formatDate value="${OrderInfo.exp_date}" pattern="yyyy-MM-dd" /></td>
-                <td><fmt:formatDate value="${OrderInfo.update_date}" pattern="yyyy-MM-dd" /></td>
-                <td><fmt:formatDate value="${OrderInfo.create_date}" pattern="yyyy-MM-dd" /></td>
+                <td>${OrderInfo.createTime}</td>
+                <td>${OrderInfo.beginTime}</td>
+                <td>${OrderInfo.expTime}</td>
+                <td>${OrderInfo.lifetime}</td>
+
                 <td>
-                    <a href="#" class="tablelink delete" onclick="deleteNumber('${OrderInfo.roam_id}','${OrderInfo.forward_phone}')"> 删除</a>
+                    <a href="/qrcodeController/updateQrCodePage?id=${OrderInfo.id}" class="tablelink">修改</a>
+                    <a href="#" class="tablelink delete" onclick="deleteQrCode('${OrderInfo.id}')"> 删除</a>
                 </td>
             </tr>
         </c:forEach>
@@ -134,7 +148,6 @@
 
         <div class="tipbtn">
             <input name="deleteId" id="deleteId" value="" hidden="hidden">
-            <input name="forwardPhone" id="forwardPhone" value="" hidden="hidden">
             <input name="" type="button"  class="sure" value="确定" onclick="deleteComfirm()"/>&nbsp;
             <input name="" type="button"  class="cancel" value="取消" />
         </div>
@@ -151,16 +164,14 @@
         $("#dataForm").submit();
     }
 
-    function deleteNumber(numberId,forwardPhone){
+    function deleteQrCode(numberId){
         $(".tip").fadeIn(200);
         $('#deleteId').val(numberId);
-        $('#forwardPhone').val(forwardPhone);
     }
 
     function deleteComfirm() {
         var deleteId = $('#deleteId').val();
-        var forwardPhone = $('#forwardPhone').val();
-        $.post("/bindingController/deleteNumberBinding",{deleteId:deleteId,forwardPhone:forwardPhone},function (result) {
+        $.post("/qrcodeController/deleteOrder",{deleteId:deleteId},function (result) {
             if(result == "success"){
                 alert("删除成功！");
                 window.location.reload();

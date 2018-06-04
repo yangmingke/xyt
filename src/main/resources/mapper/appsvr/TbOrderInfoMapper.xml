@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyt.dao.appsvr.TbOrderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xyt.model.TbOrderInfo" >
+
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="clientnum" property="clientnum" jdbcType="VARCHAR" />
+    <result column="clientphone" property="clientphone" jdbcType="VARCHAR" />
+    <result column="qrcodeid" property="qrcodeid" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="ordertype" property="ordertype" jdbcType="CHAR" />
+    <result column="months" property="months" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="cost" property="cost" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, openid, clientnum, clientphone, qrcodeid, orderid, ordertype, months, number, 
+    name, mobile, address, cost, create_time, update_time, status
+  </sql>
+
+  <select id="queryOrderListCount" parameterType="map" resultType="int">
+    select count(*)
+    from tb_order_info t
+    where 1=1
+    <if test="orderid != null" >
+      and t.orderid like CONCAT('%',#{orderid,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="clientphone != null" >
+      and t.clientphone like CONCAT('%',#{clientphone,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="mobile != null" >
+      and t.mobile like CONCAT('%',#{mobile,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="status != null" >
+      and t.status = #{status}
+    </if>
+  </select>
+
+  <select id="queryOrderList" parameterType="map" resultType="map">
+    SELECT
+    id, openid, clientnum, clientphone, qrcodeid, orderid, ordertype, months, number,
+    name, mobile, address, cost, create_time createTime, update_time updateTime, status
+    FROM
+    tb_order_info t
+    where 1=1
+    <if test="orderid != null" >
+      and t.orderid like CONCAT('%',#{orderid,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="clientphone != null" >
+      and t.clientphone like CONCAT('%',#{clientphone,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="mobile != null" >
+      and t.mobile like CONCAT('%',#{mobile,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="status != null" >
+      and t.status = #{status}
+    </if>
+    LIMIT #{begin,jdbcType=INTEGER} , #{count,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteOrder" parameterType="int">
+    DELETE FROM tb_order_info
+    WHERE id = #{0}
+  </delete>
+
+
+  <select id="queryOrderInfoById" resultMap="BaseResultMap" parameterType="int" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_order_info
+    where id = #{numberId,jdbcType=BIGINT}
+  </select>
+
+  <update id="updateOrder" parameterType="com.xyt.model.TbOrderInfo" >
+    update tb_order_info
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

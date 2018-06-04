@@ -101,33 +101,33 @@
         </thead>
         <tbody>
         <%int i = 1; %>
-        <c:forEach var="bindingInfo" items="${page.resultMap}">
+        <c:forEach var="OrderInfo" items="${page.resultMap}">
             <tr>
                 <td><%=i++%></td>
-                <td>${bindingInfo.city}</td>
-                <td>${bindingInfo.forwardnumber}</td>
+                <td>${OrderInfo.city}</td>
+                <td>${OrderInfo.forwardnumber}</td>
                 <td>
-                    <c:if test="${bindingInfo.isp == 1}">电信</c:if>
-                    <c:if test="${bindingInfo.isp == 2}">联通</c:if>
-                    <c:if test="${bindingInfo.isp == 3}">移动</c:if>
+                    <c:if test="${OrderInfo.isp == 1}">电信</c:if>
+                    <c:if test="${OrderInfo.isp == 2}">联通</c:if>
+                    <c:if test="${OrderInfo.isp == 3}">移动</c:if>
                 </td>
                 <td>
-                    <c:if test="${bindingInfo.multi == 0}">否</c:if>
-                    <c:if test="${bindingInfo.multi == 1}">是</c:if>
+                    <c:if test="${OrderInfo.multi == 0}">否</c:if>
+                    <c:if test="${OrderInfo.multi == 1}">是</c:if>
                 </td>
-                <td>${bindingInfo.counter}</td>
+                <td>${OrderInfo.counter}</td>
                 <td>
-                    <c:if test="${bindingInfo.type == 0}">卡号码</c:if>
-                    <c:if test="${bindingInfo.type == 1}">固话号</c:if>
+                    <c:if test="${OrderInfo.type == 0}">卡号码</c:if>
+                    <c:if test="${OrderInfo.type == 1}">固话号</c:if>
                 </td>
                 <td>
-                    <c:if test="${bindingInfo.status == 0}">可用</c:if>
-                    <c:if test="${bindingInfo.status == 1}">冻结</c:if>
+                    <c:if test="${OrderInfo.status == 0}">可用</c:if>
+                    <c:if test="${OrderInfo.status == 1}">冻结</c:if>
                 </td>
-                <td>${bindingInfo.remark}</td>
+                <td>${OrderInfo.remark}</td>
                 <td>
-                    <a href="/numberPoolController/updateNumberPage?numberId=${bindingInfo.id}" class="tablelink">修改</a>
-                    <a href="#" class="tablelink delete" onclick="deleteNumber('${bindingInfo.id}')"> 删除</a>
+                    <a href="/numberPoolController/updateNumberPage?numberId=${OrderInfo.id}" class="tablelink">修改</a>
+                    <a href="#" class="tablelink delete" onclick="deleteNumber('${OrderInfo.id}')"> 删除</a>
                 </td>
             </tr>
         </c:forEach>
@@ -191,7 +191,7 @@
 
     function deleteComfirm() {
         var deleteId = $('#deleteId').val();
-        $.post("/numberPoolController/deleteNumber",{deleteId:deleteId},function (result) {
+        $.post("/numberPoolController/deleteOrder",{deleteId:deleteId},function (result) {
             if(result == "success"){
                 alert("删除成功！");
                 window.location.reload();

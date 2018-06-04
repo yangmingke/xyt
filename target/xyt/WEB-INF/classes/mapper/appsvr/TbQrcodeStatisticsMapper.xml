@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyt.dao.appsvr.TbQrcodeStatisticsMapper" >
+  <select id="queryQrCodeActive" resultType="Map" parameterType="Map">
+    select * from tb_qrcode_statistics where date BETWEEN #{startDate} and #{endDate} order by date
+  </select>
+</mapper>

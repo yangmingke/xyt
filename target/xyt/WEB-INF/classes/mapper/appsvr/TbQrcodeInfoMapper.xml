@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyt.dao.appsvr.TbQrcodeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xyt.model.TbQrcodeInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="qrcode" property="qrcode" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="VARCHAR" />
+    <result column="appid" property="appid" jdbcType="VARCHAR" />
+    <result column="clientnum" property="clientnum" jdbcType="VARCHAR" />
+    <result column="bindnum" property="bindnum" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="exp_time" property="expTime" jdbcType="TIMESTAMP" />
+    <result column="qrtype" property="qrtype" jdbcType="CHAR" />
+    <result column="lifetime" property="lifetime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+
+    id, qrcode, sid, appid, clientnum, bindnum, create_time, begin_time, exp_time, qrtype, 
+    lifetime, status
+  </sql>
+
+  <select id="queryQrCodeListCount" parameterType="map" resultType="int">
+    select count(*)
+    from tb_qrcode_info t
+    where 1=1
+    <if test="qrcode != null" >
+      and t.qrcode like CONCAT('%',#{qrcode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="clientnum != null" >
+      and t.clientnum like CONCAT('%',#{clientnum,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="bindnum != null" >
+      and t.bindnum like CONCAT('%',#{bindnum,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="status != null" >
+      and t.status = #{status}
+    </if>
+  </select>
+
+  <select id="queryQrCodeList" parameterType="map" resultType="map">
+    SELECT
+    id, qrcode, sid, appid, clientnum, bindnum, create_time createTime, begin_time beginTime, exp_time expTime, qrtype,
+    lifetime, status
+    FROM
+    tb_qrcode_info t
+    where 1=1
+    <if test="qrcode != null" >
+      and t.qrcode like CONCAT('%',#{qrcode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="clientnum != null" >
+      and t.clientnum like CONCAT('%',#{clientnum,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="bindnum != null" >
+      and t.bindnum like CONCAT('%',#{bindnum,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="status != null" >
+      and t.status = #{status}
+    </if>
+    LIMIT #{begin,jdbcType=INTEGER} , #{count,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteQrcode" parameterType="int">
+    DELETE FROM tb_qrcode_info
+    WHERE id = #{0}
+  </delete>
+
+
+  <select id="queryQrCodeInfoById" resultMap="BaseResultMap" parameterType="int" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_qrcode_info
+    where id = #{numberId,jdbcType=BIGINT}
+  </select>
+
+  <update id="updateQrCode" parameterType="com.xyt.model.TForwardNumberList" >
+    update tb_qrcode_info
+    <set >
+      <if test="qrcode != null" >
+        qrcode = #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        appid = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="clientnum != null" >
+        clientnum = #{clientnum,jdbcType=VARCHAR},
+      </if>
+      <if test="bindnum != null" >
+        bindnum = #{bindnum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lifetime != null" >
+        exp_time = date_add(begin_time, interval #{lifetime,jdbcType=INTEGER} second),
+      </if>
+      <if test="qrtype != null" >
+        qrtype = #{qrtype,jdbcType=CHAR},
+      </if>
+      <if test="lifetime != null" >
+        lifetime = #{lifetime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>
